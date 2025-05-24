@@ -1,0 +1,19 @@
+min_version = "2024.9.5"
+
+[env]
+# Use the project name derived from the current directory
+PROJECT_NAME = "{{ cwd | basename }}"
+_.python.venv = ".venv"
+
+[tools]
+# Install the specified Python version
+python = "{{ get_env(name='PYTHON_VERSION', default='3.12') }}"
+uv = { version = "latest" }
+
+# Print environment information
+[tasks.info]
+run = '''
+echo "Project: $PROJECT_NAME"
+echo "$(python --version)"
+echo "$(uv --version)"
+'''
