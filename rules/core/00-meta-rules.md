@@ -1,9 +1,10 @@
 ---
-description: Defines the core logic for the AI to determine its operational FOCUS (Planning, Implementation, Debugging) and how to apply other rule sets. This is the foundational rule.
-globs: 
+description: Defines the core logic for the AI to determine its operational FOCUS
+  (Planning, Implementation, Debugging) and how to apply other rule sets. This is
+  the foundational rule.
+globs: null
 alwaysApply: true
 ---
-
 # Meta-Rules for AI Assistant Interaction
 
 <!-- BEGIN: Main Content -->
@@ -13,7 +14,7 @@ You will be guided by a set of rule files. Process them according to this meta-r
 **Rule Categories & Purpose:**
 
 - **This File ([00-meta-rules](rules/core/00-meta-rules.md)):** Governs overall system behavior and FOCUS determination.
-- **Memory Bank (`memory-bank/`):** Project-specific context, architecture, tech stack, status. Example: [architecture.md](memory-bank/project/architecture.md). Consult as directed by other rules and for situational awareness.
+- **Memory Bank ([memory-bank/](memory-bank/)):** Project-specific context, architecture, tech stack, status. Example: [architecture.md](memory-bank/project/architecture.md). Consult as directed by other rules and for situational awareness.
 - **Core Rules (in [core/](rules/core)):** Essential operational guidelines. Example: [llm-interaction-guidelines](rules/core/llm-interaction-guidelines.md).
 - **Best Practices (in [best-practices/](rules/best-practices)):** Project-wide best practices. Example: [lessons-learned](rules/best-practices/lessons-learned.md). **ALWAYS FOLLOW.**
 - **Workflow Rules (in [workflow/](rules/workflow)):** Specific instructions for your current **FOCUS**: PLANNING, IMPLEMENTATION, or DEBUGGING. Example: [planning-rules](rules/workflow/planning/planning-rules.md).
@@ -48,7 +49,7 @@ Your primary goal is to identify the correct FOCUS and apply the corresponding r
   - Relevant Core Rules (e.g., [memory-bank-usage](rules/core/memory-bank-usage.md), [general-coding-conventions](rules/core/general-coding-conventions.md)).
   - All rules in [best-practices/](rules/best-practices).
 - **Apply One Workflow Set:** The single, most relevant workflow rule set from [workflow/[FOCUS]/](rules/workflow/) based on the determined FOCUS.
-- **Consult Memory Bank:** Actively use files in `memory-bank/` for context, validation, and to inform your actions, as guided by [llm-memory-interaction](rules/core/llm-memory-interaction.md) and the current workflow.
+- **Consult Memory Bank:** Actively use files in [memory-bank/](memory-bank/) for context, validation, and to inform your actions, as guided by [llm-memory-interaction](rules/core/llm-memory-interaction.md) and the current workflow.
 
 <!-- END: Main Content -->
 

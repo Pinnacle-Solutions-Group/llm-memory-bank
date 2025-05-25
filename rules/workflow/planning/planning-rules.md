@@ -1,9 +1,9 @@
 ---
-description: Defines the process for understanding requirements, designing solutions, and creating detailed implementation plans when FOCUS = PLANNING.
-globs: 
+description: Defines the process for understanding requirements, designing solutions,
+  and creating detailed implementation plans when FOCUS = PLANNING.
+globs: null
 alwaysApply: false
 ---
-
 # Planning Workflow Rules
 
 This document outlines the process to follow when **FOCUS = PLANNING**.
@@ -48,4 +48,4 @@ It assumes Core Rules and Best Practices are understood.
    - **Present Plan:** Clearly present the proposed solution, justification, and detailed steps.
    - **Seek Approval:** **Crucially, request explicit user review and approval of the plan _before_ transitioning to `FOCUS = IMPLEMENTATION`.** State: "Please review the proposed plan. Upon approval, I will switch to FOCUS = IMPLEMENTATION."
 
-**(End of Planning Workflow)**
+<!-- End of Planning Workflow -->

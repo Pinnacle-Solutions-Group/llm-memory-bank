@@ -11,6 +11,31 @@ Welcome! This template provides a robust framework for managing, documenting, an
 - **Tracks project status, tasks, and lessons learned**
 - **Provides a living, queryable knowledge base for your project**
 
+> **NOTE**: This is Cursor specific.  Cursor rules give you the granularity control this process that other agentic editing tools do not (to my knowledge).  Submit an issue to collaborate and add support for those editors if you find this useful and you have a working solution for another editor.
+
+---
+
+## 🛠️ CLI Usage: main.py
+
+You can use the provided CLI tool to manage rules and lint documentation links. Run:
+
+```text
+Usage: main.py [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  lint              Lint all markdown links in the project and warn if links are broken
+  project-to-rules  <project-dir> Compare .cursor/rules/*.mdc to rules/*.md after reversing the mdc: links
+  rules-to-project  <project-dir> Copy rules to project/.cursor/rules with path/content, 
+                                  renaming to .mdc and changing markdown links to mdc:
+```
+
+- **lint**: Lint all markdown links in the project and warn if any are broken or malformed.
+- **project-to-rules**: Compare `.cursor/rules/*.mdc` to `rules/*.md` after project changes and sync as needed.
+- **rules-to-project**: Copy rules to `project/.cursor/rules` with correct path/content for project use.
+
 ---
 
 ## 📁 Project Layout
@@ -89,6 +114,61 @@ The LLM and workflow rules use a concept called **FOCUS** to determine which rul
   - If missing, prompt you to provide a documentation URL
   - Summarize and create `llms.txt` and additional summaries as needed
 - This enables the LLM to answer questions and generate code using project-approved docs
+
+You may also precisely control this process and deliberately trigger LLM documentation generation for a specific section or the main roadmap by referencing the relevant rules in your request.
+
+---
+
+### 📑 How to Explicitly Generate the Main Roadmap (`llms.txt`) for a Library
+
+To create or update the main documentation roadmap (`llms.txt`) for a library (used as the authoritative index for LLM lookups):
+
+1. **Explicitly request the roadmap.**  
+   Use phrases like:
+   - "Generate the documentation roadmap for [LIBRARY] v[MAJOR_VERSION] from `@web https://.....`"
+   - "Update the llms.txt for [LIBRARY] v[MAJOR_VERSION] from `@web https://.....`"
+   - "Apply the rules in `@memory-bank-summarize-library.mdc` to create or update the roadmap from `@web https://.....`"
+
+2. **What happens:**
+   - The LLM will check for an existing roadmap at `memory-bank/reference/api_docs/[LIBRARY]/[MAJOR_VERSION]/llms.txt`.
+   - If missing, you'll be prompted to provide the main documentation URL for the library/version.
+   - The LLM will crawl the main page, extract key navigation links/sections, and propose a Markdown index (llms.txt) with links to all major sections.
+   - Optionally, you can request summaries of foundational sections (see below).
+   - The roadmap will be saved and used as the primary reference for all future LLM queries about that library/version.
+
+3. **To force a refresh or update:**
+   - Explicitly request: "Refresh the llms.txt for [LIBRARY] v[MAJOR_VERSION] using the latest docs and `@memory-bank-summarize-library.mdc`"
+
+4. **Note:**
+   - The roadmap is a comprehensive, link-rich index—minimal commentary, just structure and links.
+   - For detailed summaries of specific sections, see the next section.
+
+---
+
+### 📑 How to Explicitly Generate Section-Specific Summaries (`llms-[section].txt`)
+
+To create a detailed, LLM-optimized summary for a specific section of a library's documentation:
+
+1. **Explicitly request a summary or technical overview for the section.**  
+   Use phrases like:
+   - "Summarize the [SECTION] section of [LIBRARY] v[MAJOR_VERSION] from `@web https://.....`"
+   - "Generate a technical overview of the [SECTION] docs for [LIBRARY] v[MAJOR_VERSION] from `@web https://.....`"
+   - "Create an LLM-friendly summary of [SECTION] for [LIBRARY] v[MAJOR_VERSION] from `@web https://.....`"
+   - "Apply the rules in `@memory-bank-update-section.mdc` to generate a summary for [SECTION] from `@web https://.....`"
+
+2. **What happens:**
+   - The LLM will crawl ONLY the specified section/page.
+   - A detailed, LLM-optimized summary will be written to:
+     `memory-bank/reference/api_docs/[LIBRARY]/[MAJOR_VERSION]/llms-[section].txt`
+   - The main `llms.txt` will be updated to link to this new file.
+
+3. **To force a refresh or update:**
+   - Explicitly request: "Refresh the summary for [SECTION] in [LIBRARY] v[MAJOR_VERSION] using `@memory-bank-update-section.mdc`"
+
+4. **Note:**
+   - The summary will be thorough, structured, and suitable for LLM/code reference.
+   - No other sections will be crawled or summarized unless you request them.
+   - Referencing the rule files in your request ensures the correct workflow is applied.
 
 ---
 

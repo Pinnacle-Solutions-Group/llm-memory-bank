@@ -1,9 +1,9 @@
 ---
-description: Foundational software engineering principles for code quality, robustness, testability, security, documentation, performance, and proactive assistance.
-globs: 
+description: Foundational software engineering principles for code quality, robustness,
+  testability, security, documentation, performance, and proactive assistance.
+globs: null
 alwaysApply: true
 ---
-
 # General Coding Conventions
 
 These foundational principles guide all code development for this project.

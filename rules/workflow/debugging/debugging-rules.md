@@ -1,9 +1,9 @@
 ---
-description: Defines the systematic process for diagnosing, fixing, and documenting issues when FOCUS = DEBUGGING.
-globs: 
+description: Defines the systematic process for diagnosing, fixing, and documenting
+  issues when FOCUS = DEBUGGING.
+globs: null
 alwaysApply: false
 ---
-
 # Debugging Workflow Rules
 
 This document outlines the process to follow when **FOCUS = DEBUGGING**.
@@ -60,4 +60,4 @@ It assumes Core Rules (e.g., [core/00-meta-rules](rules/core/00-meta-rules.md), 
      - Relevant technical documentation in [memory-bank/project/error_documentation.md](memory-bank/project/error_documentation.md) if the issue revealed important system insights.
    - **Stuck?** If unable to find the root cause or a fix after reasonable effort, clearly report findings, hypotheses, attempts, and request assistance.
 
-**(End of Debugging Workflow)**
+<!-- End of Debugging Workflow -->

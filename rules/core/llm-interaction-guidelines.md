@@ -1,9 +1,9 @@
 ---
-description: Foundational principles for AI assistant interaction, emphasizing clarity, context-awareness, structured responses, resourcefulness, and defined action directives.
-globs: 
+description: Foundational principles for AI assistant interaction, emphasizing clarity,
+  context-awareness, structured responses, resourcefulness, and defined action directives.
+globs: null
 alwaysApply: true
 ---
-
 # LLM Interaction Guidelines
 
 **Preamble:**

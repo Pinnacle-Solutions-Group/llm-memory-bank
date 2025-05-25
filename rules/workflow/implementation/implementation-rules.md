@@ -1,9 +1,9 @@
 ---
-description: Defines the process for executing approved plans, writing code, and ensuring alignment with project standards when FOCUS = IMPLEMENTATION.
-globs: 
+description: Defines the process for executing approved plans, writing code, and ensuring
+  alignment with project standards when FOCUS = IMPLEMENTATION.
+globs: null
 alwaysApply: false
 ---
-
 # Implementation Workflow Rules
 
 This document outlines the process to follow when **FOCUS = IMPLEMENTATION**.
@@ -43,4 +43,4 @@ It assumes Core Rules (e.g., [core/general-coding-conventions](rules/core/genera
      - Relevant technical documentation in [memory-bank/project/error_documentation.md](memory-bank/project/error_documentation.md) if new patterns emerged or key discoveries were made.
      - Potentially [memory-bank/project/architecture.md](memory-bank/project/architecture.md) or [memory-bank/project/tech_context.md](memory-bank/project/tech_context.md) files if architectural details were refined.
 
-**(End of Implementation Workflow)**
+<!-- End of Implementation Workflow -->

@@ -1,9 +1,9 @@
 ---
-description: Specifies how to document significant or recurring errors, their diagnosis, and resolutions. AI prompts for updates and creation.
-globs: 
+description: Specifies how to document significant or recurring errors, their diagnosis,
+  and resolutions. AI prompts for updates and creation.
+globs: null
 alwaysApply: false
 ---
-
 # Error Documentation Guidelines
 
 This document outlines best practices for documenting significant, recurring, or non-obvious errors encountered during development. The goal is to create a valuable knowledge base in [troubleshooting_log.md](memory-bank/project/troubleshooting_log.md) (or a similar designated file) to accelerate future debugging efforts.

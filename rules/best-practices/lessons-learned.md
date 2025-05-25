@@ -1,9 +1,9 @@
 ---
-description: A living document capturing key insights, patterns, and solutions from project development. AI should consult this and prompt for updates.
-globs: 
+description: A living document capturing key insights, patterns, and solutions from
+  project development. AI should consult this and prompt for updates.
+globs: null
 alwaysApply: false
 ---
-
 # Lessons Learned
 
 This document captures key lessons learned during the project. Reviewing these can help avoid repeating past mistakes, leverage successful patterns, and improve overall development efficiency. This is primarily maintained by the user but serves as important context for the AI, and the AI should prompt for updates.

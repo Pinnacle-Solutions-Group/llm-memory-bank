@@ -1,9 +1,9 @@
 ---
-description: Explains the structure and purpose of the Project Memory Bank, guiding the AI on where to find specific types of information.
-globs: 
+description: Explains the structure and purpose of the Project Memory Bank, guiding
+  the AI on where to find specific types of information.
+globs: null
 alwaysApply: false
 ---
-
 # Guidelines for Using the Project Memory Bank
 
 ## Purpose of Memory Bank
@@ -30,10 +30,10 @@ The Memory Bank contains structured documentation for the application. It's your
 
 - **Specific Technical Documentation, API Info, Guides:**
 
-  - `memory-bank/reference/api_docs/`: Curated roadmaps (`llms.txt`) and detailed summaries (`llms-[feature].txt`) for key libraries (see [llm-memory-interaction](rules/core/llm-memory-interaction.md)).
-  - `memory-bank/reference/technical_docs/`: In-depth technical guides, third-party library info.
-  - `memory-bank/reference/user_docs/`: End-user guides.
-  - `memory-bank/reference/release_docs/`: Release notes.
+  - [memory-bank/reference/api_docs/](memory-bank/reference/api_docs/): Curated roadmaps (`llms.txt`) and detailed summaries (`llms-[feature].txt`) for key libraries (see [llm-memory-interaction](rules/core/llm-memory-interaction.md)).
+  - [memory-bank/reference/technical_docs/](memory-bank/reference/technical_docs/): In-depth technical guides, third-party library info.
+  - [memory-bank/reference/user_docs/](memory-bank/reference/user_docs/): End-user guides.
+  - [memory-bank/reference/release_docs/](memory-bank/reference/release_docs/): Release notes.
   - [troubleshooting_log.md](memory-bank/project/troubleshooting_log.md): Log of significant/recurring errors and their solutions (see [error_documentation_guidelines](rules/best-practices/error-documentation-guidelines.md)).
 
 - **Core Principle:**

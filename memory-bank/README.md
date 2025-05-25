@@ -8,7 +8,7 @@ This is the central documentation hub for the expense report application. It con
 
 - `project/` — Project-Specific Documentation
   - Architecture, design, requirements, and overall context for the application.
-  - Key files: `architecture.md`, `tech_context.md`, `system_patterns.md`, `directory_structure.md`, `product_context.md`, `project_brief.md`.
+  - Key files: `architecture.md`, [tech_context](memory-bank/project/tech_context.md), `system_patterns.md`, `directory_structure.md`, `product_context.md`, `project_brief.md`.
 
 - `reference/` — Reference Documentation
   - Supporting materials for development, including:
