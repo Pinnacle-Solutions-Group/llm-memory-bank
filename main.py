@@ -191,6 +191,26 @@ def rules_to_project(project_folder, force, compare):
 def project_to_rules(project_folder):
     """Compare .cursor/rules/*.mdc to rules/*.md after reverse transform."""
     template_folder = Path(__file__).parent
+
+    # Check if git repo is clean
+    try:
+        result = subprocess.run(
+            ["git", "status", "--porcelain"],
+            cwd=template_folder,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        if result.stdout.strip():
+            console.print(
+                "[red]Git repository is not clean. Please commit or stash changes before proceeding."
+            )
+            sys.exit(1)
+    except subprocess.CalledProcessError:
+        console.print("[yellow]Warning: Not in a git repository or git command failed.")
+    except FileNotFoundError:
+        console.print("[yellow]Warning: git command not found.")
+
     rules_dir = template_folder / "rules"
     mdc_dir = Path(project_folder) / ".cursor"
     project_basename = Path(project_folder).name
@@ -226,8 +246,8 @@ def project_to_rules(project_folder):
             if filecmp(tf.name, src):
                 console.print(f"[green]Identical, skipping {src}")
             else:
-                console.print(f"[red]Diff for {src}")
-                run_compare(tf.name, src)
+                shutil.copy(tf.name, src)
+                console.print(f"[yellow]Updated {src}")
         os.unlink(tf.name)
 
     # Then check for new files in mdc_dir
@@ -248,14 +268,17 @@ def project_to_rules(project_folder):
                 shutil.copy(tf.name, target_md)
                 console.print(f"[green]Copied new file to {target_md}")
             os.unlink(tf.name)
-    src = rules_dir / "LLM-README.md"
+
+    # Handle LLM-README.md
+    src = template_folder / "LLM-README.md"
     dst = mdc_dir / "LLM-README.md"
     if dst.exists():
-        if filecmp(tf.name, dst):
-            console.print(f"[green]Identical, skipping {dst}")
+        if not filecmp(src, dst):
+            shutil.copy(dst, src)
+            console.print(f"[yellow]Updated {src}")
         else:
-            console.print(f"[red]Diff for {dst}")
-            run_compare(tf.name, dst)
+            console.print(f"[green]Identical, skipping {src}")
+
     console.print(f"[bold green]Done.")
 
 

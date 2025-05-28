@@ -6,47 +6,52 @@ alwaysApply: true
 ---
 # General Coding Conventions
 
-These foundational principles guide all code development for this project.
+Foundational principles for all code development. These are ALWAYS ENFORCED.
 
-## 1. Code Quality and Maintainability
+## Code Quality (Non-Negotiable)
 
-- **Clarity & Simplicity:** Readable, understandable, maintainable code. Avoid unnecessary complexity.
-- **Consistency:** Adhere to project style guides. If undefined, match existing codebase.
-- **DRY (Don't Repeat Yourself):** Maximize reusability.
-- **Meaningful Naming:** Clear, descriptive names for identifiers.
-- **Focused Components (SRP):** Functions/methods do one thing. Classes have single responsibility.
+- **Clarity First:** Readable > Clever. Simple > Complex.
+- **Consistency:** Follow project style guides. If undefined, match existing patterns.
+- **DRY:** Eliminate duplication. Extract reusable components.
+- **Naming:** Descriptive, searchable identifiers. No abbreviations.
+- **Single Responsibility:** One function = one purpose. One class = one concept.
 
-## 2. Robustness and Resilience
+## Robustness (Required)
 
-- **Input Validation:** Rigorously validate external inputs.
-- **Error Handling:** Sensible error handling, logging, graceful failure.
-- **Resource Management:** Proper management of file handles, connections, memory.
-- **Edge Cases:** Consider and handle boundary conditions.
+- **Validate All Inputs:** External data is untrusted. Sanitize and validate.
+- **Error Handling:** Log errors. Fail gracefully. Provide meaningful messages.
+- **Resource Management:** Close connections, free memory, handle cleanup.
+- **Edge Cases:** Test boundaries, nulls, empty states, max limits.
 
-## 3. Testability
+## Security (Critical)
 
-- Write testable code (unit, integration).
-- Prefer pure functions.
-- Use dependency injection where appropriate.
+- **Input Sanitization:** Prevent injection, XSS, CSRF attacks.
+- **Least Privilege:** Minimal permissions required.
+- **Secrets:** Use environment variables or secrets manager per [tech_context.md](memory-bank/project/tech_context.md).
+- **Audit Trail:** Log security-relevant actions.
 
-## 4. Security
+## Testing & Documentation
 
-- **Untrusted Input:** Treat external input as potentially malicious. Sanitize/validate.
-- **Prevent Common Vulnerabilities:** Guard against injection, XSS, CSRF, etc.
-- **Least Privilege:** Minimal necessary permissions.
-- **Secret Management:** Securely manage secrets (env vars, secrets manager). Refer to [tech_context.md](memory-bank/project/tech_context.md).
+- **Testable Code:** Write unit tests. Prefer pure functions. Use dependency injection.
+- **Comments:** Explain "why", not "what". Document non-obvious decisions.
+- **API Docs:** Document public interfaces (params, returns, side effects).
 
-## 5. Documentation
+## Performance Guidelines
 
-- **Code Comments:** Explain the "why" of non-obvious code.
-- **API Documentation:** Document public APIs (parameters, returns, behavior).
+- **Correctness First:** Make it work, then make it fast.
+- **Profile Before Optimizing:** Measure actual bottlenecks.
+- **Avoid Obvious Waste:** O(n²) where O(n) works, unnecessary loops, memory leaks.
 
-## 6. Performance
+## LLM Assistance Rules
 
-- Avoid obvious inefficiencies. Prioritize correctness/clarity first. Optimize based on profiling and specific requirements.
+**When to Suggest Improvements (During ANY FOCUS):**
+- Clear design pattern opportunity aligned with [system_patterns.md](memory-bank/project/system_patterns.md)
+- Architecture violation detected per [architecture.md](memory-bank/project/architecture.md) 
+- Security vulnerability spotted
+- Performance issue with obvious fix
 
-## 7. Proactive Assistance & Pattern Spotting
+**How to Suggest:**
+- Brief mention: "This could benefit from [pattern/fix] because [reason]"
+- Non-intrusive: Don't derail primary task unless critical
+- Align with [tech_context.md](memory-bank/project/tech_context.md) constraints
 
-- **Identify Improvement Opportunities:** If, while (`FOCUS = IMPLEMENTATION`, `PLANNING`, or `DEBUGGING`), you notice a clear, contained opportunity to apply a standard design pattern (e.g., Factory, Observer, Strategy) aligned with [system_patterns.md](memory-bank/project/system_patterns.md) that would improve the current code section, briefly mention it to the user. Example: "As I'm working on [feature], I notice this part managing [X] could potentially use a Strategy pattern. This might make adding new [Y] types easier later. Just a thought for your consideration."
-- **Alignment Check:** Ensure suggestions are consistent with [architecture.md](memory-bank/project/architecture.md) and [tech_context.md)(memory-bank/project/tech_context.md).
-- **Non-Intrusive:** Present as suggestions, not demands. Avoid derailing the primary task unless a critical issue is spotted.

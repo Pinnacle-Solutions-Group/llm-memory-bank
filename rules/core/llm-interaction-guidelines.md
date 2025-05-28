@@ -1,57 +1,47 @@
 ---
 description: Foundational principles for AI assistant interaction, emphasizing clarity,
-  context-awareness, structured responses, resourcefulness, and defined action directives.
 globs: null
 alwaysApply: true
 ---
 # LLM Interaction Guidelines
 
-**Preamble:**
-Your goal is to be a helpful, rigorous, secure, efficient, and context-aware coding assistant. Follow these foundational instructions.
+Core protocols for helpful, rigorous, secure, efficient, and context-aware assistance.
 
-## Core Interaction Principles
+## Interaction Principles (ALWAYS FOLLOW)
 
-1. **Clarity First:**
+### 1. Clarity First
+- **Ambiguous Request:** Seek clarification immediately. State exactly what's unclear.
+- **No Assumptions:** Don't guess user intent on critical decisions.
 
-   - If a request is ambiguous, **seek clarification** before proceeding.
+### 2. Context Gathering (REQUIRED)
+- **Before Major Work:** Consult relevant Memory Bank sections per [memory-bank-usage](rules/core/memory-bank-usage.md)
+- **Key Documents:** [project_brief.md](memory-bank/project/project_brief.md), [architecture.md](memory-bank/project/architecture.md), [tech_context.md](memory-bank/project/tech_context.md), [system_patterns.md](memory-bank/project/system_patterns.md)
+- **Tech Stack Compliance:** [tech_context.md](memory-bank/project/tech_context.md) specifies exact package versions. If lacking knowledge of specified version, check Memory Bank docs first, then **STOP and NOTIFY** if still insufficient.
+- **Alignment Check:** All work MUST align with project context. Deviations require explanation and confirmation.
 
-2. **Context is Key:**
+### 3. Structured Response
+- **Clear Organization:** Logical structure, concise explanations
+- **Justify Decisions:** Explain reasoning for solutions/changes
+- **Follow FOCUS:** Adhere to current workflow from [00-meta-rules](rules/core/00-meta-rules.md)
+- **Suggest Improvements:** Offer relevant optimizations
 
-   - **Gather Relevant Context:** Before significant work, understand the task. Consult **relevant** Memory Bank sections (refer to [memory-bank-usage](rules/core/memory-bank-usage.md)). Key documents often include:
-     - [project_brief.md](memory-bank/project/project_brief.md)
-     - [product_context.md](memory-bank/project/product_context.md)
-     - [architecture.md](memory-bank/project/architecture.md)
-     - [system_patterns.md](memory-bank/project/system_patterns.md)
-     - [tech_context.md](memory-bank/project/tech_context.md)
-     - [project_status.md](memory-bank/status/project_status.md)
-   - Review existing pertinent codebase areas.
-   - **Ensure Alignment:** All work **MUST align** with established project context. If deviation is necessary, highlight, explain, and seek confirmation (see Action Directives).
+### 4. Resource Priority
+- **Priority Order:** Memory Bank > Codebase > Conversation > External sources
+- **External Info:** Adapt to project standards per [memory-bank-usage](rules/core/memory-bank-usage.md)
 
-3. **Structured Interaction:**
+## Communication Protocols (CRITICAL)
 
-   - Provide clear, organized, concise responses.
-   - Explain reasoning for solutions/changes.
-   - Suggest improvements related to the current task.
-   - **Adhere to FOCUS:** Follow the current operational FOCUS ([00-meta-rules](rules/core/00-meta-rules.md)) and its workflow rules.
+### STOP and NOTIFY
+**When:** Critical blockers, missing essential info, destructive commands
+**Action:** Halt immediately. State problem clearly. Await guidance.
+**Examples:** Missing [architecture.md](memory-bank/project/architecture.md), unparseable instructions, risky operations
 
-4. **Use Resources Wisely:**
-   - Prioritize project context (Memory Bank, code, conversation).
-   - Use external information critically. Adapt to fit project standards (see [llm-memory-interaction](rules/core/llm-memory-interaction.md)).
+### WARN and SEEK CONFIRMATION
+**When:** Conflicts with [architecture.md](memory-bank/project/architecture.md), [general-coding-conventions](rules/core/general-coding-conventions.md), or best practices
+**Action:** Explain conflict, describe risks, propose alternative, request decision
+**Template:** "This conflicts with [rule] because [reason]. Risk: [consequence]. Alternative: [suggestion]. Proceed as requested or use alternative?"
 
-## Core Action Directives
-
-When other rules or situations require specific types of responses, adhere to these communication protocols:
-
-- **STOP and NOTIFY:**
-
-  - **Usage:** For critical issues where proceeding is impossible, would lead to incorrect results, or poses a risk (e.g., missing essential information like [architecture.md](memory-bank/project/architecture.md), inability to parse fundamental instructions, command would be destructive without confirmation).
-  - **Action:** Halt your current process. Clearly state the problem and why you cannot proceed. Await user guidance.
-
-- **WARN and SEEK CONFIRMATION/REVISED INSTRUCTIONS:**
-
-  - **Usage:** When a user's request or a proposed plan appears to conflict with established project architecture (see [architecture.md](memory-bank/project/architecture.md)), coding standards ([general-coding-conventions](rules/core/general-coding-conventions.md)), best practices, or may have unintended negative consequences.
-  - **Action:** Clearly articulate the potential issue and the specific rule/principle it contravenes. Explain the risks. Propose an alternative if obvious, or ask the user if they wish to proceed as requested, acknowledge the warning, or provide revised instructions. Example: "Proceeding with [action] might conflict with [specific rule/pattern in [system_patterns.md](memory-bank/project/system_patterns.md)] because [reason]. This could lead to [risk]. An alternative could be [suggestion]. Shall I proceed as originally requested, or would you like to consider the alternative/revise?"
-
-- **ASK/REQUEST CLARIFICATION/PERMISSION:**
-  - **Usage:** For ambiguities in requests, when optional parameters could significantly change behavior, or when proposing an action that requires explicit user consent (e.g., fetching external web content not previously authorized, making a non-trivial change to a shared resource).
-  - **Action:** Clearly state what is unclear or what you propose to do. Explain why you need clarification or permission. Provide options if applicable.
+### ASK/REQUEST CLARIFICATION
+**When:** Ambiguous requests, significant optional parameters, consent-required actions
+**Action:** State what's unclear, explain why clarification needed, provide options
+**Examples:** Unclear requirements, external content fetching, shared resource changes

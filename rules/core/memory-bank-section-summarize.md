@@ -1,0 +1,80 @@
+---
+description: null
+globs: null
+alwaysApply: false
+---
+# Memory Bank Section Summary Rule
+
+**Purpose:** Manual rule for creating detailed technical summaries of specific documentation sections.
+
+## Required Actions (Execute in Order)
+
+### 1. Verify Library & Section Consistency
+- **Check Library:** Scan `memory-bank/reference/api_docs/` for similar library names
+- **Library Matching:** Recognize aliases (e.g., "amplify" = "aws-amplify", "react" = "reactjs")
+- **Check Section:** Scan existing `llms-[section].md` files in library folder
+- **Section Matching:** Identify section from URL content or provided name
+- **Conflict Resolution:** If similar exists, ask: "Found existing [LIBRARY]/[SECTION]. Update that section or create new entry?"
+- **Standardize:** Use consistent naming for both library and section
+
+### 2. Validate URL Against Roadmap
+- **Cross-Reference:** Verify URL matches entry in `llms.md` roadmap
+- **Section Detection:** Auto-determine section name from URL structure or page content
+- **Roadmap Alignment:** Ensure section naming matches roadmap conventions
+
+### 3. Crawl Specified Section
+- **Target:** ONLY the provided URL/section (no other pages)
+- **Method:** Extract comprehensive technical details
+- **Scope:** Complete coverage of the specified section
+
+### 4. Create Technical Summary
+- **Format:** Detailed, LLM-friendly, prose-style technical overview
+- **Content:** Thorough, accurate, with code examples if relevant
+- **Structure:** Clear, organized for LLM consumption
+
+### 5. Save Summary
+- **Location:** `memory-bank/reference/api_docs/[LIBRARY_NAME]/[MAJOR_VERSION]/llms-[section].md`
+- **Naming:** Consistent with existing section files
+- **Overwrite:** Replace existing section summary if present
+
+### 6. Update Roadmap Index
+- **Target:** Main `llms.md` file for the library
+- **Action:** Add/update link to new section summary
+- **Format:** `- [Section Name](memory-bank/reference/api_docs/[LIBRARY]/[VERSION]/llms-[section].md)`
+
+### 7. Notify Completion
+- **Message:** "`api_docs/[LIBRARY_NAME]/[MAJOR_VERSION]/llms-[section].md` summary created"
+- **No Chat Display:** Do NOT show summary content in chat
+
+## Critical Rules
+
+**DO NOT:**
+- Display summary content in chat
+- Crawl other sections beyond specified URL
+- Create summaries without verifying library consistency
+- Use inconsistent section naming
+
+**DO:**
+- Check for existing library/section entries before creating new ones
+- Auto-detect section names from URL structure or content
+- Cross-reference with existing roadmap
+- Maintain consistent naming conventions
+- Update roadmap index with new section link
+
+**ERROR HANDLING:**
+- **URL not in roadmap:** WARN and ask if this is a new section
+- **Section name ambiguous:** Ask user to clarify section name
+- **Cannot crawl:** STOP and NOTIFY user immediately
+- **Library not found:** Ask user to run library overview rule first
+
+## Example Usage
+
+**Invocation:**
+```
+Update your memory-bank using @memory-bank-section-summarize.mdc for aws-amplify v6 graphql-customize-rules @https://docs.amplify.aws/gen1/javascript/build-a-backend/graphqlapi/customize-authorization-rules/
+```
+
+**Expected Output:**
+```
+api_docs/aws-amplify/6/llms-graphql-customize-rules.md summary created
+```

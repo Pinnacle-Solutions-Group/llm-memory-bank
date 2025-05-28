@@ -2,7 +2,7 @@
 description: Specifies how to document significant or recurring errors, their diagnosis,
   and resolutions. AI prompts for updates and creation.
 globs: null
-alwaysApply: false
+alwaysApply: true
 ---
 # Error Documentation Guidelines
 
