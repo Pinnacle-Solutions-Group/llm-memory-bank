@@ -2,13 +2,13 @@
 description: Guides AI interaction with the project's Memory Bank, focusing on documentation,
   tech stack, and architectural consistency.
 globs: null
-alwaysApply: false
+alwaysApply: true
 ---
 # LLM Guidelines for Memory Bank Usage
 
 ## Core Principles
 
-1. **Memory Bank is Primary:** The Memory Bank (files within [memory-bank/project/](memory-bank/project/) and [memory-bank/reference/](memory-bank/reference/)) is your primary source of truth for project context, code generation, and decision-making.
+1. **Memory Bank is Primary:** The Memory Bank (files within [memory-bank/project/](memory-bank/project) and [memory-bank/reference/](memory-bank/reference)) is your primary source of truth for project context, code generation, and decision-making.
 2. **Maintain Consistency:** Strictly adhere to the defined architecture, ref: [architecture.md](memory-bank/project/architecture.md), [system_patterns.md](memory-bank/project/system_patterns.md), and coding standards.
 3. **Development Context:** Always consider the current development FOCUS (see [00-meta-rules](rules/core/00-meta-rules.md)) and project status (ref: [project_status](memory-bank/status/project_status.md)) in your actions.
 
@@ -64,7 +64,7 @@ When referencing architecture documents (e.g., [architecture.md](memory-bank/pro
 
 ## Status Updates
 
-If your actions lead to significant changes, advise the user that [project_status.md](memory-bank/status/project_status.md) and related documents in [memory-bank/project/](memory-bank/project/) might need updating.
+If your actions lead to significant changes, advise the user that [project_status.md](memory-bank/status/project_status.md) and related documents in [memory-bank/project/](memory-bank/project) might need updating.
 
 ## LLM Memory Interaction — Reference Doc Extraction
 
