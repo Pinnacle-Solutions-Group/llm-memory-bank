@@ -1,5 +1,4 @@
 
-
 ## 🛠️ CLI Usage: main.py
 
 You can use the provided CLI tool to manage rules and lint documentation links. Run:

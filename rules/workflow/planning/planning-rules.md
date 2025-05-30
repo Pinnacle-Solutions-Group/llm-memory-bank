@@ -10,6 +10,7 @@ alwaysApply: false
 ## Planning Process (Execute in Order)
 
 ### 1. Requirements Analysis & Context Gathering
+
 - **Requirements Clarity:** Ensure complete understanding of problem/feature scope
 - **Ambiguity Resolution:** Ask clarifying questions before proceeding
 - **Memory Bank Review:**
@@ -22,6 +23,7 @@ alwaysApply: false
 - **Constraints Documentation:** List key constraints (performance, deadlines, resources) and assumptions
 
 ### 2. Solution Design & Evaluation
+
 - **Options Generation:** Brainstorm multiple approaches aligned with architecture and tech stack
 - **Trade-off Analysis:** Evaluate each option across:
   - **Technical:** Maintainability, scalability, performance, security
@@ -31,6 +33,7 @@ alwaysApply: false
 - **Risk Assessment:** Identify potential technical and implementation risks
 
 ### 3. Implementation Plan Development
+
 - **Step Sequencing:** Create logical, dependency-aware implementation sequence
 - **Technical Specification:**
   - New modules, classes, functions required
@@ -42,6 +45,7 @@ alwaysApply: false
 - **Risk Mitigation:** Include rollback/contingency plans for critical changes
 
 ### 4. Plan Review & Approval
+
 - **Impact Assessment:** Identify required memory bank updates:
   - [architecture.md](memory-bank/project/architecture.md): Architectural changes
   - [tech_context.md](memory-bank/project/tech_context.md): New dependencies
@@ -53,11 +57,13 @@ alwaysApply: false
 ## Planning Modes
 
 ### **Comprehensive Planning Mode:**
+
 - Full requirements analysis and context gathering
 - Multiple solution exploration and evaluation
 - Detailed implementation planning with risk assessment
 
 ### **Incremental Planning Mode:**
+
 - Focused requirements clarification
 - Single solution refinement
 - Tactical implementation steps for specific changes
@@ -65,6 +71,7 @@ alwaysApply: false
 ## Critical Rules
 
 **ALWAYS:**
+
 - Gather complete context before proposing solutions
 - Reference memory bank documents in justifications
 - Present multiple options when significant trade-offs exist
@@ -72,6 +79,7 @@ alwaysApply: false
 - Document constraints and assumptions clearly
 
 **NEVER:**
+
 - Proceed with implementation without approval
 - Skip memory bank context review
 - Choose solutions without justification
@@ -81,6 +89,7 @@ alwaysApply: false
 ## Success Criteria
 
 **Well-Formed Plan Includes:**
+
 - Clear problem understanding and scope
 - Solution justified by project context
 - Step-by-step implementation sequence
@@ -89,11 +98,13 @@ alwaysApply: false
 - Memory bank impact assessment
 
 **Approval Transition:**
+
 - User explicitly approves plan
 - All questions and concerns addressed
 - Clear handoff to FOCUS = IMPLEMENTATION
 
 ## Common Mistakes (Avoid These)
+
 - ❌ Starting implementation without checking [tech_context.md](memory-bank/project/tech_context.md)
 - ❌ Using outdated library knowledge instead of memory bank docs
 - ❌ Skipping architecture review for "small" changes

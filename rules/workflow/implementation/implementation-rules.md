@@ -10,6 +10,7 @@ alwaysApply: false
 ## Implementation Process (Execute in Order)
 
 ### 1. Plan Validation & Context
+
 - **Plan Status Check:**
   - **Explicit Plan:** Proceed with approved implementation plan
   - **Bug/Error:** Move directly to step 2 (immediate fix mode)
@@ -22,12 +23,14 @@ alwaysApply: false
 - **Conflict Resolution:** If discrepancies found, **STOP** and report to user
 
 ### 2. Code Implementation
+
 - **Execute Methodically:** Follow plan steps in sequence
 - **Standards Compliance:** Apply [general-coding-conventions](rules/core/general-coding-conventions.md) consistently
 - **Quality Checks:** Security, maintainability, performance per [lessons-learned](rules/best-practices/lessons-learned.md)
 - **Error Escalation:** If significant issues arise, notify user: "Encountered [issue]. Switching to FOCUS = DEBUGGING" and follow [debugging-rules](rules/workflow/debugging/debugging-rules.md)
 
 ### 3. Testing & Verification
+
 - **Test Implementation:**
   - Unit tests for new functionality
   - Integration tests for system interactions
@@ -36,6 +39,7 @@ alwaysApply: false
 - **Documentation Updates:** Code comments, API docs, inline documentation
 
 ### 4. Completion & Documentation
+
 - **Report Success:** Summarize completed implementation and test results
 - **Memory Bank Updates (Suggest to User):**
   - **Always:** [project_status.md](memory-bank/status/project_status.md) task completion
@@ -45,11 +49,13 @@ alwaysApply: false
 ## Implementation Modes
 
 ### **Planned Implementation Mode:**
+
 - Full plan validation and context review
 - Methodical step-by-step execution
 - Comprehensive testing and documentation
 
 ### **Bug Fix Mode:**
+
 - Skip plan validation (obvious issue identified)
 - Direct implementation of fix
 - Focus on verification and regression prevention
@@ -57,12 +63,14 @@ alwaysApply: false
 ## Critical Rules
 
 **ALWAYS:**
+
 - Validate plan alignment with current context before starting
 - Apply coding standards consistently throughout
 - Implement appropriate tests for new functionality
 - Document significant patterns or discoveries
 
 **NEVER:**
+
 - Implement without understanding requirements
 - Skip testing for "simple" changes
 - Ignore architecture or tech stack constraints
@@ -71,18 +79,21 @@ alwaysApply: false
 ## FOCUS Transitions
 
 **Switch to DEBUGGING when:**
+
 - Significant implementation errors occur
 - Tests fail unexpectedly
 - System behavior doesn't match expectations
 - External dependencies cause issues
 
 **Stay in IMPLEMENTATION when:**
+
 - Following clear, approved plan
 - Making straightforward bug fixes
 - Adding well-defined features
 - Refactoring with clear scope
 
 ## Common Mistakes (Avoid These)
+
 - ❌ Starting implementation without checking @tech_context.md
 - ❌ Using outdated library knowledge instead of memory bank docs
 - ❌ Skipping architecture review for "small" changes

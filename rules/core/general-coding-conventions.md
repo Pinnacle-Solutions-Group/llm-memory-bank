@@ -45,13 +45,14 @@ Foundational principles for all code development. These are ALWAYS ENFORCED.
 ## LLM Assistance Rules
 
 **When to Suggest Improvements (During ANY FOCUS):**
+
 - Clear design pattern opportunity aligned with [system_patterns.md](memory-bank/project/system_patterns.md)
-- Architecture violation detected per [architecture.md](memory-bank/project/architecture.md) 
+- Architecture violation detected per [architecture.md](memory-bank/project/architecture.md)
 - Security vulnerability spotted
 - Performance issue with obvious fix
 
 **How to Suggest:**
+
 - Brief mention: "This could benefit from [pattern/fix] because [reason]"
 - Non-intrusive: Don't derail primary task unless critical
 - Align with [tech_context.md](memory-bank/project/tech_context.md) constraints
-
