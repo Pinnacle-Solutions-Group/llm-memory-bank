@@ -2,7 +2,7 @@
 
 ## Overall Progress Summary
 
-_(A brief 1-2 sentence summary of the project's current standing, e.g., "Initial setup complete, core feature development underway.")_
+> _(A brief 1-2 sentence summary of the project's current standing, e.g., "Initial setup complete, core feature development underway.")_
 
 ## Current Sprint / Development Focus
 

@@ -1,23 +1,315 @@
+# LLM Memory Bank
 
-## 🛠️ CLI Usage: main.py
+A tool for managing and synchronizing LLM prompt rules and memory files between template repositories and editor-specific project directories (Cursor `.cursor/` and Windsurf `.windsurf/`).
 
-You can use the provided CLI tool to manage rules and lint documentation links. Run:
+##  Documentation
 
-```text
-Usage: main.py [OPTIONS] COMMAND [ARGS]...
+Detailed documentation is available in [the docs/ folder](docs/index.md)
 
-Options:
-  --help  Show this message and exit.
+## 🎯 Purpose
 
-Commands:
-  lint              Lint all markdown links in the project and warn if links are broken
-  project-to-rules  <project-dir> Compare .cursor/rules/*.mdc to rules/*.md after reversing the mdc: links
-  rules-to-project  <project-dir> Copy rules to project/.cursor/rules with path/content, 
-                                  renaming to .mdc and changing markdown links to mdc:
+This project solves the challenge of maintaining consistent LLM prompts and rules across different AI-powered editors while allowing for project-specific customizations. It handles:
+
+- **File format transformations** (`.md` ↔ `.mdc` for Cursor)
+- **Link rewriting** (`rules/file.md` ↔ `mdc:.cursor/rules/file.mdc`)
+- **Frontmatter management** with project-specific descriptions
+- **Bidirectional synchronization** between templates and projects
+- **Link validation** and broken link detection
+
+## 🎯 Team Collaboration & Governance
+
+This project includes a sophisticated rule system that transforms how teams collaborate with AI assistants. However, setup and configuration is required before teams can realize these benefits.
+
+**📖 [Complete Setup and Usage Guide](docs/setup-and-usage.md)**
+
+### Key Benefits (After Proper Setup)
+
+#### **Team Efficiency**
+- **Consistent AI assistance** regardless of experience level
+- **Institutional knowledge capture** prevents repeated debugging  
+- **Faster onboarding** through inherited AI knowledge
+
+#### **Quality Assurance**
+- **Built-in quality gates** prevent rushed implementations
+- **Architecture compliance** automatically enforced
+- **Technical debt prevention** through required planning
+
+#### **LLM Accuracy**
+- **Current documentation** used instead of outdated training data
+- **Project-specific context** guides all AI responses
+- **Systematic problem-solving** through FOCUS workflow
+
+### ⚠️ Investment Required
+
+- **Initial Setup**
+- **Ongoing Maintenance**
+- **Team Training**: FOCUS workflow and memory bank usage
+
+**This is a framework, not plug-and-play.** See the [Setup Guide](docs/setup-and-usage.md) for detailed requirements.
+
+## 🚀 Quick Start (Installation Only)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd llm-memory-bank
+
+# Use mise for tool and environment management
+mise trust
+mise run init
 ```
 
-- **lint**: Lint all markdown links in the project and warn if any are broken or malformed.
-- **project-to-rules**: Compare `.cursor/rules/*.mdc` to `rules/*.md` after project changes and sync as needed.
-- **rules-to-project**: Copy rules to `project/.cursor/rules` with correct path/content for project use.
+This will automatically:
+- Install the correct Python version via [mise](https://mise.jdx.dev/)
+- Set up the virtual environment using uv
+- Install all required dependencies
+
+### Basic Usage (Installation Commands)
+
+```bash
+# Copy template rules to a Cursor project
+python main.py rules-to-project /path/to/project --editor cursor 
+
+# Copy template rules to a Windsurf project  
+python main.py rules-to-project /path/to/project --editor windsurf 
+
+# Sync changes from project back to template
+python main.py project-to-rules /path/to/project --editor cursor
+
+# Lint all markdown links
+python main.py lint
+```
+
+**⚠️ IMPORTANT**: After installation, see [Setup and Usage Guide](docs/setup-and-usage.md) and your project's `LLM-README.md` for complete configuration instructions.
+
+**📚 [Complete Documentation](docs/index.md)**
+
+## 🛠️ CLI Reference
+
+### Commands
+
+#### `rules-to-project`
+Copy rules from template to project directory with editor-specific transformations.
+
+```bash
+python main.py rules-to-project <PROJECT_FOLDER> --editor <cursor|windsurf> [OPTIONS]
+```
+
+**Options:**
+- `--force`: Overwrite existing files without prompting
+- `--compare`: Show diffs before overwriting files
+- `--editor`: Target editor (`cursor` or `windsurf`) [required]
+
+**What it does:**
+- Copies `rules/*.md` to `.cursor/rules/*.mdc` (Cursor) or `.windsurf/rules/*.md` (Windsurf)
+- Transforms markdown links: `(rules/file.md)` → `(mdc:.cursor/rules/file.mdc)`
+- Copies `memory-bank/` directory to project root
+- Copies `LLM-README.md` to project root
+
+#### `project-to-rules`
+
+Synchronize changes from project editor-specific rules back to the template rules.
+
+```bash
+python main.py project-to-rules <PROJECT_FOLDER> --editor <cursor|windsurf> [OPTIONS]
+```
+
+**Options:**
+- `--force`: Overwrite existing files without prompting
+- `--compare`: Show diffs before overwriting files
+- `--editor`: Source editor (`cursor` or `windsurf`) [required]
+
+**Safety Features:**
+- **By default, skips overwriting files** - shows what would be changed
+- Use `--force` to actually apply changes
+- Use `--compare` to review diffs before deciding
+- Checks git status to prevent data loss on unclean repositories
+
+**What it does:**
+- Converts `.cursor/rules/*.mdc` or `.windsurf/rules/*.md` back to `rules/*.md`
+- Transforms links back to template format
+- Detects and optionally creates new rule files from project
+- Synchronizes `LLM-README.md` changes back to template
+- **Automatically runs markdownlint** to fix formatting issues after completion
+
+**Cross-editor field derivation:**
+- **Cursor → Template**: Derives Windsurf `trigger` field from Cursor rule types
+- **Windsurf → Template**: Derives Cursor `alwaysApply` field from Windsurf triggers
+- Preserves existing fields when template file already exists
+
+**Requirements:**
+- Node.js and npm/npx for automatic markdownlint execution
+- Clean git working directory (uncommitted changes will prevent execution)
+
+#### `lint`
+Validate all markdown links in the project.
+
+```bash
+python main.py lint
+```
+
+**What it does:**
+- Scans `rules/**/*.md` and `memory-bank/**/*.md`
+- Reports broken links with file:line:column positions
+- Validates link targets exist
+
+## 📁 Project Structure
+
+```text
+llm-memory-bank/
+├── main.py                 # CLI entry point
+├── lib/                    # Core library modules
+│   ├── __init__.py
+│   ├── common.py          # Shared utilities (frontmatter, file comparison)
+│   ├── commands.py        # Generic command implementations
+│   ├── cursor/            # Cursor-specific transformations
+│   │   └── __init__.py
+│   └── windsurf/          # Windsurf-specific transformations
+│       └── __init__.py
+├── rules/                 # Template rule files (.md)
+├── memory-bank/           # Template memory files
+└── LLM-README.md         # Project-specific documentation template
+```
+
+### Architecture
+
+The codebase is organized into modular components:
+
+- **`lib/common.py`**: Shared utilities like frontmatter parsing, file comparison, and diff tools
+- **`lib/commands.py`**: Editor-agnostic command implementations that delegate to editor modules
+- **`lib/cursor/`**: Cursor-specific transformations (`.md` ↔ `.mdc`, `mdc:` links)
+- **`lib/windsurf/`**: Windsurf-specific transformations (path rewriting only)
+- **`main.py`**: Lightweight CLI that imports and delegates to library modules
+
+Each editor module implements the same interface:
+- `transform_to_project(src, dst)` - Template → Project
+- `transform_from_project(src, dst, ...)` - Project → Template
+
+## 🔄 Transformation Examples
+
+### Cursor Transformations
+
+**Template → Project:**
+```markdown
+<!-- rules/coding-style.md -->
+See [best practices](rules/best-practices.md) for details.
+
+<!-- → .cursor/rules/coding-style.mdc -->
+See [best practices](mdc:.cursor/rules/best-practices.mdc) for details.
+```
+
+**Project → Template:**
+```markdown
+<!-- .cursor/rules/coding-style.mdc -->
+See [best practices](mdc:.cursor/rules/best-practices.mdc) for details.
+
+<!-- → rules/coding-style.md -->
+See [best practices](rules/best-practices.md) for details.
+```
+
+### Windsurf Transformations
+
+**Template → Project:**
+```markdown
+<!-- rules/coding-style.md -->
+See [best practices](rules/best-practices.md) for details.
+
+<!-- → .windsurf/rules/coding-style.md -->
+See [best practices](.windsurf/rules/best-practices.md) for details.
+```
+
+### Frontmatter Management
+
+The tool automatically manages YAML frontmatter, converting between unified template format and editor-specific formats:
+
+- **Template format**: Unified structure in `rules/*.md` files
+- **Cursor format**: All fields always present in `.cursor/rules/*.mdc` files  
+- **Windsurf format**: Trigger-based activation in `.windsurf/rules/*.md` files
+
+**📋 [Complete Frontmatter Documentation](docs/frontmatter-structure.md)**
+
+## 🤝 Contributing
+
+### Adding Support for New Editors
+
+1. Create a new module: `lib/new_editor/__init__.py`
+2. Implement the required interface:
+   ```python
+   def transform_to_project(src_path, dst_path):
+       """Transform template file to project format."""
+       pass
+   
+   def transform_from_project(src_path, dst_path, project_basename=None, master_description=None):
+       """Transform project file back to template format."""
+       pass
+   ```
+3. Update `main.py` to include the new editor in click choices and import the module
+4. Update `lib/commands.py` if editor-specific directory logic is needed
+
+### Development Guidelines
+
+- **Modularity**: Keep editor-specific logic in respective modules
+- **Consistency**: New editors should follow the same interface pattern
+- **Safety**: Always validate file operations and provide clear error messages
+- **Testing**: Test transformations with real project files
+- **Documentation**: Update README and inline docs for new features
+
+### Common Tasks
+
+**Testing transformations:**
+```bash
+# Create a test project
+mkdir test-project
+python main.py rules-to-project test-project --editor cursor --force
+# Modify files in test-project/.cursor/rules/
+python main.py project-to-rules test-project --editor cursor
+```
+
+**Debugging link issues:**
+```bash
+python main.py lint  # Check for broken links
+```
+
+## 📋 Requirements
+
+- [mise](https://mise.jdx.dev/) for tool and environment management
+- Dependencies managed automatically via uv (installed by mise)
+- Optional: `bcompare` for visual file comparison
+
+## 🐛 Troubleshooting
+
+**"Git repository not clean" error:**
+- Commit or stash changes before running `project-to-rules`
+- This prevents accidental loss of template changes
+
+**Import errors:**
+- Ensure you're running from the project root directory
+- Check that all dependencies are installed
+
+**File not found errors:**
+- Verify project structure matches expected editor layout
+- Use `--force` flag cautiously to overwrite existing files
+
+## 📄 License
+
+Copyright 2024 Mike Crowe <drmikecrowe@gmail.com> and Pinnacle Solutions Group <mike.crowe@pinnsg.com>
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+See [LICENSE](LICENSE) for the full license text.
 
 ---
+
+*This tool enables seamless collaboration between AI-powered editors while maintaining a single source of truth for LLM prompts and rules.*

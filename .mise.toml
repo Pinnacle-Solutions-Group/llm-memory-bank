@@ -9,6 +9,7 @@ _.python.venv = ".venv"
 # Install the specified Python version
 python = "{{ get_env(name='PYTHON_VERSION', default='3.12') }}"
 uv = { version = "latest" }
+node = "{{ get_env(name='NODE_VERSION', default='22') }}"
 
 # Print environment information
 [tasks.info]
@@ -16,4 +17,19 @@ run = '''
 echo "Project: $PROJECT_NAME"
 echo "$(python --version)"
 echo "$(uv --version)"
+echo "node $(node --version)"
+'''
+
+[tasks.init]
+run = '''
+if [ ! -d .venv ]; then 
+        python -m venv .venv
+        uv init
+fi
+'''
+
+[tasks.format]
+run = '''
+npx markdownlint '**/*.md' --fix --ignore node_modules/ --config .markdownlint.json
+ruff format **/*.py
 '''

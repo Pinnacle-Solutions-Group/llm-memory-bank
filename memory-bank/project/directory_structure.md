@@ -82,4 +82,4 @@ flowchart TD
 - **`config/`**: Application configuration (API endpoints, constants).
 - **`types/`**: Type definitions, interfaces, or schemas.
 
-_(This is an example structure and should be adapted and refined as the application's needs become clearer. The goal is to maintain a clean and organized codebase.)_
+> _(This is an example structure and should be adapted and refined as the application's needs become clearer. The goal is to maintain a clean and organized codebase.)_

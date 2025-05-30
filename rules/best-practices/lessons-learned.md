@@ -1,8 +1,6 @@
 ---
 description: A living document capturing key insights, patterns, and solutions from
-  project development. AI should consult this and prompt for updates.
-globs: null
-alwaysApply: true
+activation: always
 ---
 # Lessons Learned
 

@@ -1,8 +1,6 @@
 ---
-description: Specifies how to document significant or recurring errors, their diagnosis,
-  and resolutions. AI prompts for updates and creation.
-globs: null
-alwaysApply: true
+description: Specifies how to document significant or recurring errors, their diagnosis, and resolutions. AI prompts for updates and creation.
+activation: always
 ---
 # Error Documentation Guidelines
 
