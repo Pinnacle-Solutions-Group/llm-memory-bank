@@ -12,10 +12,6 @@ def transform_to_project(src_path, dst_path):
 
     frontmatter, body = extract_frontmatter(content)
 
-    # Convert old-style frontmatter to new activation-based format if needed
-    if frontmatter and "activation" not in frontmatter:
-        frontmatter = convert_legacy_to_activation(frontmatter)
-
     # Transform links in body
     body = re.sub(
         r"\(rules/([^)]+)\.md\)",
@@ -32,32 +28,6 @@ def transform_to_project(src_path, dst_path):
 
     with open(dst_path, "w") as f:
         f.write(cursor_frontmatter + body)
-
-
-def convert_legacy_to_activation(frontmatter):
-    """Convert legacy frontmatter (alwaysApply/globs/trigger) to activation-based format."""
-    new_frontmatter = {}
-
-    # Preserve description
-    if "description" in frontmatter:
-        new_frontmatter["description"] = frontmatter["description"]
-
-    # Determine activation from legacy fields
-    always_apply = frontmatter.get("alwaysApply", False)
-    globs = frontmatter.get("globs", "")
-    trigger = frontmatter.get("trigger", "")
-
-    if always_apply is True:
-        new_frontmatter["activation"] = "always"
-    elif globs and globs.strip() and globs not in ["null"]:
-        new_frontmatter["activation"] = "glob"
-        new_frontmatter["globs"] = globs
-    elif trigger == "manual":
-        new_frontmatter["activation"] = "manual"
-    else:
-        new_frontmatter["activation"] = "agent-requested"
-
-    return new_frontmatter
 
 
 def transform_from_project(

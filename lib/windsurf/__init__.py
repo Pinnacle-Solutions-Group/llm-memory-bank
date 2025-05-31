@@ -12,10 +12,6 @@ def transform_to_project(src_path, dst_path):
 
     frontmatter, body = extract_frontmatter(content)
 
-    # Convert old-style frontmatter to new activation-based format if needed
-    if frontmatter and "activation" not in frontmatter:
-        frontmatter = convert_legacy_to_activation(frontmatter)
-
     # Transform links in body
     body = re.sub(r"\(rules/([^)]+)\.md\)", r"(.windsurf/rules/\1.md)", body)
     body = re.sub(r"\(memory-bank/", r"(.windsurf/memory-bank/", body)
@@ -23,37 +19,11 @@ def transform_to_project(src_path, dst_path):
     # Replace placeholders with final paths
     body = body.replace("WINDSURF_RULE_PLACEHOLDER_", ".windsurf/rules/")
 
-    # Apply Windsurf-specific frontmatter formatting
+    # Apply Windsurf-specific frontmatter formatting (customized below)
     windsurf_frontmatter = create_windsurf_frontmatter(frontmatter)
 
     with open(dst_path, "w") as f:
         f.write(windsurf_frontmatter + "\n" + body)
-
-
-def convert_legacy_to_activation(frontmatter):
-    """Convert legacy frontmatter (alwaysApply/globs/trigger) to activation-based format."""
-    new_frontmatter = {}
-
-    # Preserve description
-    if "description" in frontmatter:
-        new_frontmatter["description"] = frontmatter["description"]
-
-    # Determine activation from legacy fields
-    always_apply = frontmatter.get("alwaysApply", False)
-    globs = frontmatter.get("globs", "")
-    trigger = frontmatter.get("trigger", "")
-
-    if always_apply is True:
-        new_frontmatter["activation"] = "always"
-    elif globs and globs.strip() and globs not in ["null"]:
-        new_frontmatter["activation"] = "glob"
-        new_frontmatter["globs"] = globs
-    elif trigger == "manual":
-        new_frontmatter["activation"] = "manual"
-    else:
-        new_frontmatter["activation"] = "agent-requested"
-
-    return new_frontmatter
 
 
 def transform_from_project(
@@ -66,31 +36,31 @@ def transform_from_project(
     frontmatter, body = extract_frontmatter(content)
 
     # Transform links in body
-    def repl(match):
-        inner = match.group(1)
-        inner = inner.replace(".windsurf/rules/", "rules/")
-        return f"({inner})"
-
-    body = re.sub(r"\((.windsurf/rules/[^)]+)\)", repl, body)
+    body = re.sub(
+        r"\(.windsurf/rules/([^)]+)\.md\)", lambda m: f"(rules/{m.group(1)}.md)", body
+    )
 
     # Transform memory-bank links back to template format
     body = re.sub(r"\(\.windsurf/memory-bank/", r"(memory-bank/", body)
 
     # Prepare frontmatter for template format
     description = frontmatter.get("description", "")
+    # Also rewrite .windsurf/rules/... links in the description
+    if ".windsurf/rules/" in description:
+        description = description.replace(".windsurf/rules/", "rules/")
     if (not description) and master_description:
         description = master_description
 
     # Convert windsurf frontmatter to activation-based format
     trigger = frontmatter.get("trigger", "model")
-    globs = frontmatter.get("globs", "")
+    globs = frontmatter.get("globs", None)
 
     # Map windsurf trigger to activation
-    if trigger == "always":
+    if trigger == "always_on":
         activation = "always"
     elif trigger == "glob":
         activation = "glob"
-    elif trigger == "model":
+    elif trigger == "model_decision":
         activation = "agent-requested"
     elif trigger == "manual":
         activation = "manual"
@@ -100,7 +70,7 @@ def transform_from_project(
     # Build new frontmatter
     new_frontmatter = {"description": description, "activation": activation}
 
-    if activation == "glob":
+    if activation == "glob" and globs:
         new_frontmatter["globs"] = globs
 
     with open(dst_path, "w") as f:
@@ -137,3 +107,38 @@ def dump_frontmatter(frontmatter, body):
     lines.append("---")
 
     return "\n".join(lines) + "\n" + body
+
+
+def create_windsurf_frontmatter(frontmatter_dict):
+    """Create Windsurf-style frontmatter with new trigger values and globs omission."""
+    activation = frontmatter_dict.get("activation", "manual")
+    globs = frontmatter_dict.get("globs", None)
+    description = frontmatter_dict.get("description", "")
+
+    # Map activation to trigger
+    if activation == "always":
+        trigger = "always_on"
+    elif activation == "glob":
+        trigger = "glob"
+    elif activation == "agent-requested":
+        trigger = "model_decision"
+    elif activation == "manual":
+        trigger = "manual"
+    else:
+        trigger = activation  # fallback
+
+    lines = ["---"]
+    lines.append(f"trigger: {trigger}")
+
+    # Description
+    if description.strip():
+        lines.append(f"description: {description}")
+    else:
+        lines.append("description: ")
+
+    # Globs (only if present and non-empty, and only for glob activation)
+    if activation == "glob" and globs:
+        lines.append(f"globs: {globs}")
+
+    lines.append("---")
+    return "\n".join(lines)

@@ -208,7 +208,7 @@ Windsurf also requires all fields present, with trigger-based activation:
 
 ```yaml
 ---
-trigger: glob
+trigger: always_on
 description: TypeScript coding standards
 globs: **/*.ts,**/*.tsx
 ---
@@ -216,12 +216,37 @@ globs: **/*.ts,**/*.tsx
 
 ### Windsurf-Specific Rules
 
-- ✅ **All fields always present**: `trigger`, `description`, `globs` appear in every file
-- ✅ **Empty fields show blank**: `globs:` instead of omitting the field entirely
+- ✅ **'trigger' and 'description' always present**
+- ✅ **'globs:' only present if non-empty**
 - ✅ **No quotes on values**: Clean format without unnecessary quotation marks
 - ✅ **Single newline after frontmatter**: One blank line before content begins
 - ✅ **Automatic trigger derivation**: Derived from `alwaysApply` and `globs` if not explicit
 
+#### Example: Always On Rule
+```yaml
+---
+trigger: always_on
+description: Core meta rules for AI behavior
+---
+```
+
+#### Example: Glob Rule
+```yaml
+---
+trigger: glob
+description: TypeScript coding standards
+globs: **/*.ts,**/*.tsx
+---
+```
+
+#### Example: Model Decision Rule
+```yaml
+---
+trigger: model_decision
+description: Advanced debugging techniques
+---
+```
+
 ### Trigger Derivation Logic
 
-- `alwaysApply: true` → `trigger: always`
+- `alwaysApply: true` → `trigger: always_on`
