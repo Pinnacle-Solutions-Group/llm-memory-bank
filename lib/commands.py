@@ -104,6 +104,12 @@ def rules_to_project_impl(project_folder, force, compare, editor_module, editor_
     else:
         console.print(f"[cyan]Skipping {dst} (use --force or --compare)")
 
+    src = template_folder / "LLM-SETUP-TODO.md"
+    dst = Path(project_folder) / "LLM-SETUP-TODO.md"
+    if not dst.exists():
+        shutil.copy(src, dst)
+        console.print(f"[yellow]Copied {src} to {dst}")
+
 
 def project_to_rules_impl(project_folder, force, compare, editor_module, editor_name):
     """Implementation of project-to-rules command."""

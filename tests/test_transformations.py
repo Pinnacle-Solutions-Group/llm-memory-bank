@@ -156,7 +156,7 @@ Multiple links: [rule1](rules/rule1.md) and [rule2](rules/workflow/rule2.md).
                 assert ".windsurf/rules/core/other-rule.md" in result
                 assert ".windsurf/rules/rule1.md" in result
                 assert ".windsurf/rules/workflow/rule2.md" in result
-                assert ".windsurf/memory-bank/project/tech_context.md" in result
+                assert "memory-bank/project/tech_context.md" in result
 
                 # Ensure original links are replaced
                 assert "(rules/core/other-rule.md)" not in result

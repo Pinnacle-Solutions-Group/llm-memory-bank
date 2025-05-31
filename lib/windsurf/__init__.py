@@ -14,10 +14,7 @@ def transform_to_project(src_path, dst_path):
 
     # Transform links in body
     body = re.sub(r"\(rules/([^)]+)\.md\)", r"(.windsurf/rules/\1.md)", body)
-    body = re.sub(r"\(memory-bank/", r"(.windsurf/memory-bank/", body)
-
-    # Replace placeholders with final paths
-    body = body.replace("WINDSURF_RULE_PLACEHOLDER_", ".windsurf/rules/")
+    body = re.sub(r"\(memory-bank/", r"(memory-bank/", body)
 
     # Apply Windsurf-specific frontmatter formatting (customized below)
     windsurf_frontmatter = create_windsurf_frontmatter(frontmatter)
@@ -40,8 +37,8 @@ def transform_from_project(
         r"\(.windsurf/rules/([^)]+)\.md\)", lambda m: f"(rules/{m.group(1)}.md)", body
     )
 
-    # Transform memory-bank links back to template format
-    body = re.sub(r"\(\.windsurf/memory-bank/", r"(memory-bank/", body)
+    # Transform memory-bank links back to template format - no longer needed since we don't prepend .windsurf
+    # body = re.sub(r"\(\.windsurf/memory-bank/", r"(memory-bank/", body)
 
     # Prepare frontmatter for template format
     description = frontmatter.get("description", "")
