@@ -49,7 +49,9 @@ This project includes a sophisticated rule system that transforms how teams coll
 
 ## 🚀 Quick Start (Installation Only)
 
-### Installation
+You have two main ways to set up the project: using [mise](https://mise.jdx.dev/) (recommended for automatic tool and environment management) or using `pip` with a Python virtual environment.
+
+### Option 1: Using mise (Recommended)
 
 ```bash
 # Clone the repository
@@ -62,9 +64,33 @@ mise run init
 ```
 
 This will automatically:
-- Install the correct Python version via [mise](https://mise.jdx.dev/)
-- Set up the virtual environment using uv
-- Install all required dependencies
+- Install the correct Python version (Python 3.12 by default, as specified in `.mise.toml`).
+- Set up the virtual environment using `uv` (a fast Python package installer and resolver, often used with `mise`).
+- Install all required dependencies.
+
+`mise` helps manage project-specific tool versions (like Python, Node.js) and environment variables, ensuring consistency across different setups. `uv` is a very fast alternative to `pip` and `venv`, significantly speeding up dependency installation and resolution.
+
+### Option 2: Using pip and venv
+
+If you prefer not to use `mise`, you can set up the project manually using `pip` and Python's built-in `venv` module.
+
+1.  **Ensure Python is installed:** You'll need Python 3.12 or newer. You can check your Python version with `python --version`.
+2.  **Clone the repository:**
+    ```bash
+    git clone <repository-url> # Replace <repository-url> with the actual URL
+    cd llm-memory-bank
+    ```
+3.  **Create and activate a virtual environment:**
+    ```bash
+    python -m venv .venv
+    source .venv/bin/activate  # On Windows, use: .venv\Scripts\activate
+    ```
+4.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+This will install all necessary Python packages into your virtual environment. You will also need to ensure Node.js and npm/npx are installed and available in your PATH if you plan to use the `project-to-rules` command, as it relies on `markdownlint` which is typically installed via npx.
 
 ### Basic Usage (Installation Commands)
 
@@ -274,9 +300,18 @@ python main.py lint  # Check for broken links
 
 ## 📋 Requirements
 
-- [mise](https://mise.jdx.dev/) for tool and environment management
-- Dependencies managed automatically via uv (installed by mise)
-- Optional: `bcompare` for visual file comparison
+**For `mise` users:**
+- [mise](https://mise.jdx.dev/) for tool and environment management.
+- Dependencies (Python, Node.js, `uv`, Python packages) are managed automatically by `mise` as configured in `.mise.toml` and `pyproject.toml`.
+
+**For `pip` users:**
+- Python 3.12 or newer.
+- `pip` and `venv` (usually included with Python).
+- Dependencies are listed in `requirements.txt`.
+- Node.js and npm/npx: Required for the `project-to-rules` command's automatic `markdownlint` execution. You'll need to install these separately.
+
+**Optional:**
+- `bcompare` for visual file comparison
 
 ## 🐛 Troubleshooting
 

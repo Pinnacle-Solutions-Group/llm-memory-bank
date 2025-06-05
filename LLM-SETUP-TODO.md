@@ -14,3 +14,13 @@ Update these files to reflect your project:
 - [ ] `memory-bank/reference/troubleshooting_log.md` — Error log (add if missing)
 - [ ] `memory-bank/reference/user_docs/` — End-user guides (optional)
 - [ ] `memory-bank/reference/release_docs/` — Release notes (optional)
+
+## NOTE: Utilize the LLM to assist with this
+
+Here is a real-world example of starting the architecture:
+
+> My plan for this is to use @tech_context.md and build the @project_brief.md
+> Users will be able to take photos of receipts from their phone, and their receipts should be uploaded to:
+> [bucket]/receipts/[user-email]/[yyyy-mm-dd]/[guid].png
+> using amplify.  It will then be submitted to OpenAI for recognition and categorization and entered into the DynamoDB database
+> Then, when complete, the user can flag the expense report to be approved and download an excel copy
