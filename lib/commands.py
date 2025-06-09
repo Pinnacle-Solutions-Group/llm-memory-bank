@@ -82,14 +82,8 @@ def rules_to_project_impl(project_folder, force, compare, editor_module, editor_
                     src_file = Path(src_dir) / file
                     dst_file = dst_dir / file
                     if not dst_file.exists():
-                        resp = Prompt.ask(
-                            f"[yellow]Copy missing file {dst_file}? (y/n)",
-                            choices=["y", "n"],
-                            default="n",
-                        )
-                        if resp == "y":
-                            shutil.copy(src_file, dst_file)
-                            console.print(f"[green]Copied {src_file} to {dst_file}")
+                        shutil.copy(src_file, dst_file)
+                        console.print(f"[green]Copied {src_file} to {dst_file}")
 
     src = template_folder / "LLM-README.md"
     dst = Path(project_folder) / "LLM-README.md"
