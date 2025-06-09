@@ -1,6 +1,7 @@
 ---
 description: A living document capturing key insights, patterns, and solutions from
 activation: always
+priority: 25
 ---
 # Lessons Learned
 

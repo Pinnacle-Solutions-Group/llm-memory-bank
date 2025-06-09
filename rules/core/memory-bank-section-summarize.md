@@ -1,6 +1,7 @@
 ---
 description: Memory Bank Section Summary Rule
 activation: manual
+priority: 35
 ---
 # Memory Bank Section Summary Rule
 

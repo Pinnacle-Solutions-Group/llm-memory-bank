@@ -1,6 +1,8 @@
 ---
 description: Defines the core logic for the AI to determine its operational FOCUS
 activation: always
+priority: 5
+single_file: skip
 ---
 # Meta-Rules for AI Assistant Interaction
 
@@ -10,7 +12,6 @@ activation: always
 1. **Core Rules** ([core/](rules/core)): Essential operational guidelines - ALWAYS APPLY
 2. **Best Practices** ([best-practices/](rules/best-practices)): Project-wide standards - ALWAYS APPLY  
 3. **Workflow Rules** ([workflow/](rules/workflow)): FOCUS-specific instructions - APPLY ONE SET
-4. **Memory Bank** ([memory-bank/](mdc:memory-bank)): Project context and documentation - CONSULT AS NEEDED
 
 ## FOCUS Determination (Critical)
 

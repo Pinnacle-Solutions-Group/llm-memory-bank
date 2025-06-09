@@ -1,6 +1,5 @@
 import re
 import subprocess
-import sys
 from pathlib import Path
 
 import click
@@ -8,6 +7,7 @@ from rich.console import Console
 
 from lib import cursor, windsurf
 from lib.commands import project_to_rules_impl, rules_to_project_impl
+from lib.single_file import transform_to_project_single_file
 
 console = Console()
 
@@ -24,12 +24,19 @@ def cli():
 @click.option(
     "--editor",
     required=True,
-    type=click.Choice(["cursor", "windsurf"]),
+    type=click.Choice(["cursor", "windsurf", "claude-code", "aider-chat"]),
     help="Specify the editor to use",
 )
 def rules_to_project(project_folder, force, compare, editor):
     """Copy rules to project/.cursor/rules with path/content transform."""
-    if editor == "cursor":
+    if editor == "claude-code" or editor == "aider-chat":
+        if editor == "claude-code":
+            dst_file = "CLAUDE.md"
+        elif editor == "aider-chat":
+            dst_file = "CONVENTIONS.md"
+        transform_to_project_single_file(project_folder, dst_file)
+        return
+    elif editor == "cursor":
         editor_module = cursor
     elif editor == "windsurf":
         editor_module = windsurf

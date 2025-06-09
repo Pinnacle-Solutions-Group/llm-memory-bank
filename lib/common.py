@@ -147,6 +147,14 @@ def validate_frontmatter(frontmatter_dict):
     ):
         raise ValueError(f"activation: {activation} should not have globs field")
 
+    # Validate priority is an integer when present
+    priority = frontmatter_dict.get("priority")
+    if priority is not None:
+        try:
+            int(priority)
+        except (ValueError, TypeError):
+            raise ValueError("priority field must be an integer")
+
     return True
 
 

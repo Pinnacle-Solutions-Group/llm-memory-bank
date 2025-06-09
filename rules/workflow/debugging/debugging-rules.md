@@ -1,6 +1,7 @@
 ---
 description: Defines the systematic process for diagnosing, fixing, and documenting
 activation: agent-requested
+priority: 35
 ---
 # Debugging Workflow Rules
 

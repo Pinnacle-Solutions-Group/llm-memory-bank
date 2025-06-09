@@ -1,3 +1,4 @@
 # SpecStory explanation file
 .specstory/.what-is-this.md
 __pycache__/
+.aider*

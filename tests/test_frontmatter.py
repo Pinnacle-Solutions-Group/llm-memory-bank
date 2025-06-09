@@ -104,6 +104,39 @@ class TestActivationValidation:
         ):
             validate_frontmatter(frontmatter)
 
+    def test_invalid_priority_type(self):
+        """Test that non-integer priority fails validation."""
+        frontmatter = {
+            "description": "Test rule",
+            "activation": "always",
+            "priority": "high",
+        }
+
+        with pytest.raises(ValueError, match="priority field must be an integer"):
+            validate_frontmatter(frontmatter)
+
+    def test_valid_priority_types(self):
+        """Test that valid priority values pass validation."""
+        # Test with string number
+        frontmatter1 = {
+            "description": "Test rule",
+            "activation": "always",
+            "priority": "10",
+        }
+        assert validate_frontmatter(frontmatter1) is True
+
+        # Test with integer
+        frontmatter2 = {
+            "description": "Test rule",
+            "activation": "always",
+            "priority": 10,
+        }
+        assert validate_frontmatter(frontmatter2) is True
+
+        # Test with no priority
+        frontmatter3 = {"description": "Test rule", "activation": "always"}
+        assert validate_frontmatter(frontmatter3) is True
+
 
 class TestCursorFrontmatter:
     """Test Cursor-specific frontmatter generation."""

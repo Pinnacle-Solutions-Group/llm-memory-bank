@@ -1,6 +1,7 @@
 ---
 description: Foundational principles for AI assistant interaction, emphasizing clarity
 activation: always
+priority: 15
 ---
 # LLM Interaction Guidelines
 

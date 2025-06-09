@@ -1,6 +1,7 @@
 ---
 description: Ensure AI assistant creates proper unit tests rather than temporary test scripts in projects with existing test suites
 activation: always
+priority: 15
 ---
 
 # Unit Test Development Rule

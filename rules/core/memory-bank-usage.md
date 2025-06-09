@@ -1,6 +1,7 @@
 ---
 description: Explains the structure and purpose of the Project Memory Bank, guiding
 activation: always
+priority: 11
 ---
 # Guidelines for Using the Project Memory Bank
 

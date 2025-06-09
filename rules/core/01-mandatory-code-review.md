@@ -1,0 +1,8 @@
+---
+description: Define the reasoning for making code changes
+activation: always
+priority: 10
+---
+# MANDATORY CODE REVIEW
+
+Before making ANY significant code changes, conduct an internal round table discussion with David Thomas (The Pragmatic Programmer), Andrew Hunt (The Pragmatic Programmer), and Uncle Bob (Clean Code). If they would approve, proceed, if not, iterate until they would approve.

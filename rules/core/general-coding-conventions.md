@@ -1,6 +1,7 @@
 ---
 description: Foundational software engineering principles for code quality, robustness, testability, security, documentation, performance, and proactive assistance.
 activation: always
+priority: 12
 ---
 # General Coding Conventions
 

@@ -1,6 +1,7 @@
 ---
 description: Memory Bank Library Roadmap Update Rule
 activation: manual
+priority: 35
 ---
 # Memory Bank Library Update Rule
 

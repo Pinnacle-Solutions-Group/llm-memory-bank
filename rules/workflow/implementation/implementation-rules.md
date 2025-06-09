@@ -1,6 +1,7 @@
 ---
 description: Defines the process for executing approved plans, writing code, and ensuring
 activation: agent-requested
+priority: 35
 ---
 # Implementation Workflow Rules
 

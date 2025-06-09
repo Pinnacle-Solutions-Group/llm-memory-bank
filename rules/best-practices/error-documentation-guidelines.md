@@ -1,6 +1,7 @@
 ---
 description: Specifies how to document significant or recurring errors, their diagnosis, and resolutions. AI prompts for updates and creation.
 activation: always
+priority: 25
 ---
 # Error Documentation Guidelines
 
@@ -24,11 +25,11 @@ Each entry should ideally include:
 3. **Diagnosis Steps:** Investigation, tools used, key findings.
 4. **Root Cause:** Fundamental reason.
 5. **Resolution:** Steps taken, code/config changes (link to PRs if possible).
-6. **Preventative Measures / Lessons Learned:** How to prevent; link to [lessons-learned](rules/best-practices/lessons-learned.md) if applicable.
+6. **Preventative Measures / Lessons Learned:** How to prevent; link to [lessons-learned](memory-bank/project/lessons_learned.md) if applicable.
 
 ## LLM Actions & Prompts
 
 After successfully resolving an error when `FOCUS = DEBUGGING`, if the error meets the criteria outlined above, **YOU MUST** check if the designated troubleshooting log file (e.g., [troubleshooting_log.md](memory-bank/project/troubleshooting_log.md)) exists.
 
-- **If the log file does NOT exist:** **YOU MUST** first prompt the user: "I'd like to suggest an entry for the troubleshooting log, but [troubleshooting_log.md](memory-bank/project/troubleshooting_log.md) doesn't seem to exist yet. Shall I create it using the standard format outlined in this [error_documentation_guidelines](rules/best-practices/error-documentation-guidelines.md) rule?" If approved, create the file with a placeholder structure.
+- **If the log file does NOT exist:** **YOU MUST** first prompt the user: "I'd like to suggest an entry for the troubleshooting log, but [troubleshooting_log.md](memory-bank/project/troubleshooting_log.md) doesn't seem to exist yet. Shall I create it using the standard format outlined in this **error-documentation-guidelines rule**?" If approved, create the file with a placeholder structure.
 - **Once the log file exists (or was just created):** **YOU MUST** then prompt the user: "This seems like a good candidate for our troubleshooting log. Would you like me to help draft an entry for [troubleshooting_log.md](memory-bank/project/troubleshooting_log.md) based on our debugging session?"

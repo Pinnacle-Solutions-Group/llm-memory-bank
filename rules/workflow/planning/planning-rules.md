@@ -1,6 +1,7 @@
 ---
 description: Defines the process for understanding requirements, designing solutions
 activation: agent-requested
+priority: 35
 ---
 # Planning Workflow Rules
 

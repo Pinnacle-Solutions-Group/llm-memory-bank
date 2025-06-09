@@ -127,11 +127,11 @@ To create or update the main documentation roadmap (`llms.md`) for a library (us
 
 #### Examples for the Main Roadmap
 
-> Update your memory bank using @memory-bank-library-overview.mdc for @https://lucide.dev/guide/packages/lucide-react version 0
+> Update your memory bank using @memory-bank-library-overview.mdc for @<https://lucide.dev/guide/packages/lucide-react> version 0
 
 ---
 
-> Using @memory-bank-library-overview.mdc and @https://ai-sdk.dev/docs/introduction create the summary for ai@4 
+> Using @memory-bank-library-overview.mdc and @<https://ai-sdk.dev/docs/introduction> create the summary for ai@4 
 
 ---
 
@@ -162,11 +162,11 @@ To create a detailed, LLM-optimized summary for a specific section of a library'
 
 #### Examples for the Section Specific Summary
 
-> update your memory-bank using @memory-bank-section-summarize.mdc for cli-commands @https://docs.amplify.aws/react/reference/cli-commands/ 
+> update your memory-bank using @memory-bank-section-summarize.mdc for cli-commands @<https://docs.amplify.aws/react/reference/cli-commands/> 
 
 ---
 
-> Using @memory-bank-section-summarize.mdc update the function section of amplify v6 from @https://docs.amplify.aws/vue/build-a-backend/functions/set-up-function/ 
+> Using @memory-bank-section-summarize.mdc update the function section of amplify v6 from @<https://docs.amplify.aws/vue/build-a-backend/functions/set-up-function/> 
 
 ---
 
