@@ -1,0 +1,36 @@
+---
+description: Specifies how to document significant or recurring errors, their diagnosis, and resolutions. AI prompts for updates and creation.
+globs: 
+alwaysApply: true
+---
+
+# Error Documentation Guidelines
+
+This document outlines best practices for documenting significant, recurring, or non-obvious errors encountered during development. The goal is to create a valuable knowledge base in [troubleshooting_log.md](mdc:memory-bank/project/troubleshooting_log.md) (or a similar designated file) to accelerate future debugging efforts.
+
+## When to Document an Error
+
+Document errors that are:
+
+- **Non-obvious:** The cause and solution are not immediately apparent.
+- **Recurring:** The same or similar errors have occurred multiple times.
+- **Significant Impact:** The error caused considerable delay or system malfunction.
+- **Complex Solution:** The steps to diagnose and resolve were involved.
+
+## Standard Error Log Entry Format (to be used in [troubleshooting_log.md](mdc:memory-bank/project/troubleshooting_log.md))
+
+Each entry should ideally include:
+
+1. **Error Summary:** Date, Symptom(s), System/Module, Severity.
+2. **Context & Environment:** Software versions, configuration, reproduction steps.
+3. **Diagnosis Steps:** Investigation, tools used, key findings.
+4. **Root Cause:** Fundamental reason.
+5. **Resolution:** Steps taken, code/config changes (link to PRs if possible).
+6. **Preventative Measures / Lessons Learned:** How to prevent; link to [lessons-learned](mdc:memory-bank/project/lessons_learned.md) if applicable.
+
+## LLM Actions & Prompts
+
+After successfully resolving an error when `FOCUS = DEBUGGING`, if the error meets the criteria outlined above, **YOU MUST** check if the designated troubleshooting log file (e.g., [troubleshooting_log.md](mdc:memory-bank/project/troubleshooting_log.md)) exists.
+
+- **If the log file does NOT exist:** **YOU MUST** first prompt the user: "I'd like to suggest an entry for the troubleshooting log, but [troubleshooting_log.md](mdc:memory-bank/project/troubleshooting_log.md) doesn't seem to exist yet. Shall I create it using the standard format outlined in this **error-documentation-guidelines rule**?" If approved, create the file with a placeholder structure.
+- **Once the log file exists (or was just created):** **YOU MUST** then prompt the user: "This seems like a good candidate for our troubleshooting log. Would you like me to help draft an entry for [troubleshooting_log.md](mdc:memory-bank/project/troubleshooting_log.md) based on our debugging session?"

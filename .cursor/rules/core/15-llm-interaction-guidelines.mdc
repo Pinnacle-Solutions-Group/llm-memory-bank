@@ -1,0 +1,48 @@
+---
+description: Foundational principles for AI assistant interaction, emphasizing clarity
+globs: 
+alwaysApply: true
+---
+
+# LLM Interaction Guidelines
+
+Core protocols for helpful, rigorous, secure, efficient, and context-aware assistance.
+
+## Interaction Principles (ALWAYS FOLLOW)
+
+### 1. Clarity First
+- **Ambiguous Request:** Seek clarification immediately. State exactly what's unclear.
+- **No Assumptions:** Don't guess user intent on critical decisions.
+
+### 2. Context Gathering (REQUIRED)
+- **Before Major Work:** Consult relevant Memory Bank sections per [memory-bank-usage](mdc:.cursor/rules/core/memory-bank-usage.mdc)
+- **Key Documents:** [project_brief.md](mdc:memory-bank/project/project_brief.md), [architecture.md](mdc:memory-bank/project/architecture.md), [tech_context.md](mdc:memory-bank/project/tech_context.md), [system_patterns.md](mdc:memory-bank/project/system_patterns.md)
+- **Tech Stack Compliance:** [tech_context.md](mdc:memory-bank/project/tech_context.md) specifies exact package versions. If lacking knowledge of specified version, check Memory Bank docs first, then **STOP and NOTIFY** if still insufficient.
+- **Alignment Check:** All work MUST align with project context. Deviations require explanation and confirmation.
+
+### 3. Structured Response
+- **Clear Organization:** Logical structure, concise explanations
+- **Justify Decisions:** Explain reasoning for solutions/changes
+- **Follow FOCUS:** Adhere to current workflow from [00-meta-rules](mdc:.cursor/rules/core/00-meta-rules.mdc)
+- **Suggest Improvements:** Offer relevant optimizations
+
+### 4. Resource Priority
+- **Priority Order:** Memory Bank > Codebase > Conversation > External sources
+- **External Info:** Adapt to project standards per [memory-bank-usage](mdc:.cursor/rules/core/memory-bank-usage.mdc)
+
+## Communication Protocols (CRITICAL)
+
+### STOP and NOTIFY
+**When:** Critical blockers, missing essential info, destructive commands
+**Action:** Halt immediately. State problem clearly. Await guidance.
+**Examples:** Missing [architecture.md](mdc:memory-bank/project/architecture.md), unparseable instructions, risky operations
+
+### WARN and SEEK CONFIRMATION
+**When:** Conflicts with [architecture.md](mdc:memory-bank/project/architecture.md), [general-coding-conventions](mdc:.cursor/rules/core/general-coding-conventions.mdc), or best practices
+**Action:** Explain conflict, describe risks, propose alternative, request decision
+**Template:** "This conflicts with [rule] because [reason]. Risk: [consequence]. Alternative: [suggestion]. Proceed as requested or use alternative?"
+
+### ASK/REQUEST CLARIFICATION
+**When:** Ambiguous requests, significant optional parameters, consent-required actions
+**Action:** State what's unclear, explain why clarification needed, provide options
+**Examples:** Unclear requirements, external content fetching, shared resource changes

@@ -1,0 +1,41 @@
+---
+description: Ensure AI assistant creates proper unit tests rather than temporary test scripts in projects with existing test suites
+globs: 
+alwaysApply: true
+---
+
+# Unit Test Development Rule
+
+When working on projects that have an established unit test suite (indicated by presence of `tests/` directory with existing test files), the AI assistant MUST follow these guidelines:
+
+## Required Actions
+
+**DO:**
+- Add new test cases to existing test files when testing related functionality
+- Create new properly named test files following the project's test naming conventions (e.g., `test_*.py`)
+- Ensure all test cases are properly documented with descriptive names and docstrings
+- Run the full test suite after making changes to verify nothing is broken
+- Structure tests using the project's established testing patterns and frameworks
+
+**DO NOT:**
+- Create temporary test scripts that will be deleted after verification
+- Write one-off validation scripts instead of proper unit tests
+- Skip adding tests for new functionality or bug fixes
+- Leave test code uncommented or poorly documented
+
+## Test Development Priority
+
+1. **Extend existing tests** - Add test cases to existing test classes when functionality is related
+2. **Create new test modules** - When testing entirely new functionality, create appropriately named test files
+3. **Maintain test coverage** - Ensure new code paths have corresponding test coverage
+4. **Follow project patterns** - Use the same testing framework, assertion style, and organization as existing tests
+
+## Rationale
+
+Temporary test scripts provide short-term validation but offer no long-term value. Proper unit tests serve as:
+- **Living documentation** of expected behavior
+- **Regression prevention** for future changes
+- **Code quality assurance** through continuous validation
+- **Collaboration tools** for team development
+
+Always prioritize building and maintaining a comprehensive, permanent test suite over quick, disposable validation scripts

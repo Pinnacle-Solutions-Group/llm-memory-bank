@@ -1,350 +1,206 @@
-# LLM Memory Bank
+# Project Template: LLM-Driven Development & Documentation
 
-A tool for managing and synchronizing LLM prompt rules and memory files between template repositories and editor-specific project directories (Cursor `.cursor/` and Windsurf `.windsurf/`).
-
-##  Documentation
-
-Detailed documentation is available in [the docs/ folder](docs/index.md)
-
-## 🎯 Purpose
-
-This project solves the challenge of maintaining consistent LLM prompts and rules across different AI-powered editors while allowing for project-specific customizations. It handles:
-
-- **File format transformations** (`.md` ↔ `.mdc` for Cursor)
-- **Link rewriting** (`rules/file.md` ↔ `mdc:.cursor/rules/file.mdc`)
-- **Frontmatter management** with project-specific descriptions
-- **Bidirectional synchronization** between templates and projects
-- **Link validation** and broken link detection
-
-## 🎯 Team Collaboration & Governance
-
-This project includes a sophisticated rule system that transforms how teams collaborate with AI assistants. However, setup and configuration is required before teams can realize these benefits.
-
-**📖 [Complete Setup and Usage Guide](docs/setup-and-usage.md)**
-
-### Key Benefits (After Proper Setup)
-
-#### **Team Efficiency**
-- **Consistent AI assistance** regardless of experience level
-- **Institutional knowledge capture** prevents repeated debugging  
-- **Faster onboarding** through inherited AI knowledge
-
-#### **Quality Assurance**
-- **Built-in quality gates** prevent rushed implementations
-- **Architecture compliance** automatically enforced
-- **Technical debt prevention** through required planning
-
-#### **LLM Accuracy**
-- **Current documentation** used instead of outdated training data
-- **Project-specific context** guides all AI responses
-- **Systematic problem-solving** through FOCUS workflow
-
-### ⚠️ Investment Required
-
-- **Initial Setup**
-- **Ongoing Maintenance**
-- **Team Training**: FOCUS workflow and memory bank usage
-
-**This is a framework, not plug-and-play.** See the [Setup Guide](docs/setup-and-usage.md) for detailed requirements.
-
-## 🚀 Quick Start (Installation Only)
-
-You have two main ways to set up the project: using [mise](https://mise.jdx.dev/) (recommended for automatic tool and environment management) or using `pip` with a Python virtual environment.
-
-### Option 1: Using mise (Recommended)
-
-```bash
-# Clone the repository
-git clone <repository-url>
-cd llm-memory-bank
-
-# Use mise for tool and environment management
-mise trust
-mise run init
-```
-
-This will automatically:
-- Install the correct Python version (Python 3.12 by default, as specified in `.mise.toml`).
-- Set up the virtual environment using `uv` (a fast Python package installer and resolver, often used with `mise`).
-- Install all required dependencies.
-
-`mise` helps manage project-specific tool versions (like Python, Node.js) and environment variables, ensuring consistency across different setups. `uv` is a very fast alternative to `pip` and `venv`, significantly speeding up dependency installation and resolution.
-
-### Option 2: Using pip and venv
-
-If you prefer not to use `mise`, you can set up the project manually using `pip` and Python's built-in `venv` module.
-
-1.  **Ensure Python is installed:** You'll need Python 3.12 or newer. You can check your Python version with `python --version`.
-2.  **Clone the repository:**
-    ```bash
-    git clone <repository-url> # Replace <repository-url> with the actual URL
-    cd llm-memory-bank
-    ```
-3.  **Create and activate a virtual environment:**
-    ```bash
-    python -m venv .venv
-    source .venv/bin/activate  # On Windows, use: .venv\Scripts\activate
-    ```
-4.  **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-This will install all necessary Python packages into your virtual environment. You will also need to ensure Node.js and npm/npx are installed and available in your PATH if you plan to use the `project-to-rules` command, as it relies on `markdownlint` which is typically installed via npx.
-
-### Basic Usage (Installation Commands)
-
-```bash
-# Copy template rules to a Cursor project
-python main.py rules-to-project /path/to/project --editor cursor 
-
-# Copy template rules to a Windsurf project  
-python main.py rules-to-project /path/to/project --editor windsurf 
-
-# Sync changes from project back to template
-python main.py project-to-rules /path/to/project --editor cursor
-
-# Lint all markdown links
-python main.py lint
-```
-
-**⚠️ IMPORTANT**: After installation, see [Setup and Usage Guide](docs/setup-and-usage.md) and your project's `LLM-README.md` for complete configuration instructions.
-
-**📚 [Complete Documentation](docs/index.md)**
-
-## 🛠️ CLI Reference
-
-### Commands
-
-#### `rules-to-project`
-Copy rules from template to project directory with editor-specific transformations.
-
-```bash
-python main.py rules-to-project <PROJECT_FOLDER> --editor <cursor|windsurf> [OPTIONS]
-```
-
-**Options:**
-- `--force`: Overwrite existing files without prompting
-- `--compare`: Show diffs before overwriting files
-- `--editor`: Target editor (`cursor` or `windsurf`) [required]
-
-**What it does:**
-- Copies `rules/*.md` to `.cursor/rules/*.mdc` (Cursor) or `.windsurf/rules/*.md` (Windsurf)
-- Transforms markdown links: `(rules/file.md)` → `(mdc:.cursor/rules/file.mdc)`
-- Copies `memory-bank/` directory to project root
-- Copies `LLM-README.md` to project root
-
-#### `project-to-rules`
-
-Synchronize changes from project editor-specific rules back to the template rules.
-
-```bash
-python main.py project-to-rules <PROJECT_FOLDER> --editor <cursor|windsurf> [OPTIONS]
-```
-
-**Options:**
-- `--force`: Overwrite existing files without prompting
-- `--compare`: Show diffs before overwriting files
-- `--editor`: Source editor (`cursor` or `windsurf`) [required]
-
-**Safety Features:**
-- **By default, skips overwriting files** - shows what would be changed
-- Use `--force` to actually apply changes
-- Use `--compare` to review diffs before deciding
-- Checks git status to prevent data loss on unclean repositories
-
-**What it does:**
-- Converts `.cursor/rules/*.mdc` or `.windsurf/rules/*.md` back to `rules/*.md`
-- Transforms links back to template format
-- Detects and optionally creates new rule files from project
-- Synchronizes `LLM-README.md` changes back to template
-- **Automatically runs markdownlint** to fix formatting issues after completion
-
-**Cross-editor field derivation:**
-- **Cursor → Template**: Derives Windsurf `trigger` field from Cursor rule types
-- **Windsurf → Template**: Derives Cursor `alwaysApply` field from Windsurf triggers
-- Preserves existing fields when template file already exists
-
-**Requirements:**
-- Node.js and npm/npx for automatic markdownlint execution
-- Clean git working directory (uncommitted changes will prevent execution)
-
-#### `lint`
-Validate all markdown links in the project.
-
-```bash
-python main.py lint
-```
-
-**What it does:**
-- Scans `rules/**/*.md` and `memory-bank/**/*.md`
-- Reports broken links with file:line:column positions
-- Validates link targets exist
-
-## 📁 Project Structure
-
-```text
-llm-memory-bank/
-├── main.py                 # CLI entry point
-├── lib/                    # Core library modules
-│   ├── __init__.py
-│   ├── common.py          # Shared utilities (frontmatter, file comparison)
-│   ├── commands.py        # Generic command implementations
-│   ├── cursor/            # Cursor-specific transformations
-│   │   └── __init__.py
-│   └── windsurf/          # Windsurf-specific transformations
-│       └── __init__.py
-├── rules/                 # Template rule files (.md)
-├── memory-bank/           # Template memory files
-└── LLM-README.md         # Project-specific documentation template
-```
-
-### Architecture
-
-The codebase is organized into modular components:
-
-- **`lib/common.py`**: Shared utilities like frontmatter parsing, file comparison, and diff tools
-- **`lib/commands.py`**: Editor-agnostic command implementations that delegate to editor modules
-- **`lib/cursor/`**: Cursor-specific transformations (`.md` ↔ `.mdc`, `mdc:` links)
-- **`lib/windsurf/`**: Windsurf-specific transformations (path rewriting only)
-- **`main.py`**: Lightweight CLI that imports and delegates to library modules
-
-Each editor module implements the same interface:
-- `transform_to_project(src, dst)` - Template → Project
-- `transform_from_project(src, dst, ...)` - Project → Template
-
-## 🔄 Transformation Examples
-
-### Cursor Transformations
-
-**Template → Project:**
-```markdown
-<!-- rules/coding-style.md -->
-See [best practices](rules/best-practices.md) for details.
-
-<!-- → .cursor/rules/coding-style.mdc -->
-See [best practices](mdc:.cursor/rules/best-practices.mdc) for details.
-```
-
-**Project → Template:**
-```markdown
-<!-- .cursor/rules/coding-style.mdc -->
-See [best practices](mdc:.cursor/rules/best-practices.mdc) for details.
-
-<!-- → rules/coding-style.md -->
-See [best practices](rules/best-practices.md) for details.
-```
-
-### Windsurf Transformations
-
-**Template → Project:**
-```markdown
-<!-- rules/coding-style.md -->
-See [best practices](rules/best-practices.md) for details.
-
-<!-- → .windsurf/rules/coding-style.md -->
-See [best practices](.windsurf/rules/best-practices.md) for details.
-```
-
-### Frontmatter Management
-
-The tool automatically manages YAML frontmatter, converting between unified template format and editor-specific formats:
-
-- **Template format**: Unified structure in `rules/*.md` files
-- **Cursor format**: All fields always present in `.cursor/rules/*.mdc` files  
-- **Windsurf format**: Trigger-based activation in `.windsurf/rules/*.md` files
-
-**📋 [Complete Frontmatter Documentation](docs/frontmatter-structure.md)**
-
-## 🤝 Contributing
-
-### Adding Support for New Editors
-
-1. Create a new module: `lib/new_editor/__init__.py`
-2. Implement the required interface:
-   ```python
-   def transform_to_project(src_path, dst_path):
-       """Transform template file to project format."""
-       pass
-   
-   def transform_from_project(src_path, dst_path, project_basename=None, master_description=None):
-       """Transform project file back to template format."""
-       pass
-   ```
-3. Update `main.py` to include the new editor in click choices and import the module
-4. Update `lib/commands.py` if editor-specific directory logic is needed
-
-### Development Guidelines
-
-- **Modularity**: Keep editor-specific logic in respective modules
-- **Consistency**: New editors should follow the same interface pattern
-- **Safety**: Always validate file operations and provide clear error messages
-- **Testing**: Test transformations with real project files
-- **Documentation**: Update README and inline docs for new features
-
-### Common Tasks
-
-**Testing transformations:**
-```bash
-# Create a test project
-mkdir test-project
-python main.py rules-to-project test-project --editor cursor --force
-# Modify files in test-project/.cursor/rules/
-python main.py project-to-rules test-project --editor cursor
-```
-
-**Debugging link issues:**
-```bash
-python main.py lint  # Check for broken links
-```
-
-## 📋 Requirements
-
-**For `mise` users:**
-- [mise](https://mise.jdx.dev/) for tool and environment management.
-- Dependencies (Python, Node.js, `uv`, Python packages) are managed automatically by `mise` as configured in `.mise.toml` and `pyproject.toml`.
-
-**For `pip` users:**
-- Python 3.12 or newer.
-- `pip` and `venv` (usually included with Python).
-- Dependencies are listed in `requirements.txt`.
-- Node.js and npm/npx: Required for the `project-to-rules` command's automatic `markdownlint` execution. You'll need to install these separately.
-
-**Optional:**
-- `bcompare` for visual file comparison
-
-## 🐛 Troubleshooting
-
-**"Git repository not clean" error:**
-- Commit or stash changes before running `project-to-rules`
-- This prevents accidental loss of template changes
-
-**Import errors:**
-- Ensure you're running from the project root directory
-- Check that all dependencies are installed
-
-**File not found errors:**
-- Verify project structure matches expected editor layout
-- Use `--force` flag cautiously to overwrite existing files
-
-## 📄 License
-
-Copyright 2024 Mike Crowe <drmikecrowe@gmail.com> and Pinnacle Solutions Group <mike.crowe@pinnsg.com>
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-See [LICENSE](LICENSE) for the full license text.
+Welcome! This template provides a robust framework for managing, documenting, and automating your project's development process using LLM-assisted rules and a structured memory bank.
 
 ---
 
-*This tool enables seamless collaboration between AI-powered editors while maintaining a single source of truth for LLM prompts and rules.*
+## 🚀 What Does This Template Do?
+
+- **Automates project context, workflow, and documentation for LLMs and humans**
+- **Enforces best practices, coding standards, and workflow discipline**
+- **Tracks project status, tasks, and lessons learned**
+- **Provides a living, queryable knowledge base for your project**
+
+> **NOTE**: This is Cursor specific and Windsurf specific at this current time.  Collaboration to support other platforms is welcomed.
+
+---
+
+## 📁 Project Layout
+
+After installing withing your project will have:
+
+```mermaid
+graph LR
+    A[.cursor/rules/] --> B(core/)
+    A --> C(best-practices/)
+    A --> D(workflow/)
+    A --> E(project/)
+    F[memory-bank/] --> G(project/)
+    F --> H(status/)
+    F --> I(reference/)
+```
+
+- `.cursor/rules/`: All rule files (core, best-practices, workflow, project-specific)
+- `memory-bank/`: Project context, status, architecture, and reference docs
+
+---
+
+## 🗂️ Rules Overview
+
+- **Core Rules**: Always active. Define LLM behavior, memory bank usage, and coding standards.
+- **Best Practices**: Lessons learned, error documentation, and continuous improvement.
+- **Workflow Rules**: Activated by FOCUS (PLANNING, IMPLEMENTATION, DEBUGGING). Guide the LLM and team through each phase.
+- **Project Rules**: Any project-specific or custom rules.
+
+---
+
+## 🔄 How FOCUS Works
+
+The LLM and workflow rules use a concept called **FOCUS** to determine which rules to apply:
+
+- **PLANNING**: Requirements, architecture, and solution design
+- **IMPLEMENTATION**: Writing code, applying standards, testing
+- **DEBUGGING**: Diagnosing and fixing issues, updating documentation
+
+**How to Use:**
+
+- Explicitly set FOCUS in your requests (e.g., "FOCUS = PLANNING") or let the LLM infer from context
+- The LLM will apply the correct workflow rules and prompt you if FOCUS is ambiguous
+
+### Examples of FOCUS
+
+> Your focus is PLANNING for this task
+> 
+> Review @src from an online no-code builder.  This project has the look/feel I want, but is not integrated with @aws-amplify/ui-react
+> 
+> This must be a detailed plan with steps I can indiividually tackle
+> 
+> Plan out how to create those components in my project
+> Plan out how to migrate the colors and assets into my project
+> Write that plan into steps with each step into a new markdown file in @status and reference this within the pending/ To Do section of @project_status.md 
+
+---
+
+> OK, set your focus to planning the authentication so users are fully authenticated when they hit the dashboard
+> 
+> Please review @llms-authentication.txt and @llms-backend-authentication-index.txt for key points that need to be addressed
+
+---
+
+> OK, your focus is planning:  In reviewing @NewExpenseForm.tsx -- this feels very large and in need to refactoring.  How would you refactor this to be more modular and maintainable
+
+---
+
+## 📚 Lessons Learned & Error Documentation
+
+- **Lessons Learned**: Add key insights and patterns to `memory-bank/best-practices/lessons-learned.md` (or as referenced in rules)
+- **Error Documentation**: Log significant/recurring errors in `memory-bank/reference/troubleshooting_log.md` using the format in `rules/best-practices/error_documentation_guidelines.md`
+- The LLM will prompt you to update these after major issues or discoveries
+
+---
+
+## 📖 Reference Docs & `llms.md`
+
+- For each major library in your tech stack (`memory-bank/project/tech_context.md`), the LLM will:
+  - Look for a local roadmap: `memory-bank/reference/api_docs/[LIBRARY]/[MAJOR_VERSION]/llms.md`
+  - If missing, prompt you to provide a documentation URL
+  - Summarize and create `llms.md` and additional summaries as needed
+- This enables the LLM to answer questions and generate code using project-approved docs
+
+You may also precisely control this process and deliberately trigger LLM documentation generation for a specific section or the main roadmap by referencing the relevant rules in your request.
+
+---
+
+### 📑 How to Explicitly Generate the Main Roadmap (`llms.md`) for a Library
+
+To create or update the main documentation roadmap (`llms.md`) for a library (used as the authoritative index for LLM lookups):
+
+1. **Explicitly request the roadmap.**  
+   Use phrases like:
+   - "Generate the documentation roadmap for [LIBRARY] v[MAJOR_VERSION] from `@web https://.....`"
+   - "Update the llms.md for [LIBRARY] v[MAJOR_VERSION] from `@web https://.....`"
+   - "Apply the rules in `@memory-bank-summarize-library.mdc` to create or update the roadmap from `@web https://.....`"
+
+2. **What happens:**
+   - The LLM will check for an existing roadmap at `memory-bank/reference/api_docs/[LIBRARY]/[MAJOR_VERSION]/llms.md`.
+   - If missing, you'll be prompted to provide the main documentation URL for the library/version.
+   - The LLM will crawl the main page, extract key navigation links/sections, and propose a Markdown index (llms.md) with links to all major sections.
+   - Optionally, you can request summaries of foundational sections (see below).
+   - The roadmap will be saved and used as the primary reference for all future LLM queries about that library/version.
+
+3. **To force a refresh or update:**
+   - Explicitly request: "Refresh the llms.md for [LIBRARY] v[MAJOR_VERSION] using the latest docs and `@memory-bank-summarize-library.mdc`"
+
+4. **Note:**
+   - The roadmap is a comprehensive, link-rich index—minimal commentary, just structure and links.
+   - For detailed summaries of specific sections, see the next section.
+
+#### Examples for the Main Roadmap
+
+> Update your memory bank using @memory-bank-library-overview.mdc for @<https://lucide.dev/guide/packages/lucide-react> version 0
+
+---
+
+> Using @memory-bank-library-overview.mdc and @<https://ai-sdk.dev/docs/introduction> create the summary for ai@4 
+
+---
+
+### 📑 How to Explicitly Generate Section-Specific Summaries (`llms-[section].txt`)
+
+To create a detailed, LLM-optimized summary for a specific section of a library's documentation:
+
+1. **Explicitly request a summary or technical overview for the section.**  
+   Use phrases like:
+   - "Summarize the [SECTION] section of [LIBRARY] v[MAJOR_VERSION] from `@web https://.....`"
+   - "Generate a technical overview of the [SECTION] docs for [LIBRARY] v[MAJOR_VERSION] from `@web https://.....`"
+   - "Create an LLM-friendly summary of [SECTION] for [LIBRARY] v[MAJOR_VERSION] from `@web https://.....`"
+   - "Apply the rules in `@memory-bank-update-section.mdc` to generate a summary for [SECTION] from `@web https://.....`"
+
+2. **What happens:**
+   - The LLM will crawl ONLY the specified section/page.
+   - A detailed, LLM-optimized summary will be written to:
+     `memory-bank/reference/api_docs/[LIBRARY]/[MAJOR_VERSION]/llms-[section].txt`
+   - The main `llms.md` will be updated to link to this new file.
+
+3. **To force a refresh or update:**
+   - Explicitly request: "Refresh the summary for [SECTION] in [LIBRARY] v[MAJOR_VERSION] using `@memory-bank-update-section.mdc`"
+
+4. **Note:**
+   - The summary will be thorough, structured, and suitable for LLM/code reference.
+   - No other sections will be crawled or summarized unless you request them.
+   - Referencing the rule files in your request ensures the correct workflow is applied.
+
+#### Examples for the Section Specific Summary
+
+> update your memory-bank using @memory-bank-section-summarize.mdc for cli-commands @<https://docs.amplify.aws/react/reference/cli-commands/> 
+
+---
+
+> Using @memory-bank-section-summarize.mdc update the function section of amplify v6 from @<https://docs.amplify.aws/vue/build-a-backend/functions/set-up-function/> 
+
+---
+
+## 📝 How the Rules Work Together
+
+```mermaid
+graph TD
+    A[User/LLM Request] --> B{Determine FOCUS}
+    B -->|PLANNING| C[Apply Planning Rules]
+    B -->|IMPLEMENTATION| D[Apply Implementation Rules]
+    B -->|DEBUGGING| E[Apply Debugging Rules]
+    C & D & E --> F[Consult Core & Best Practices]
+    F --> G[Consult/Update Memory Bank]
+    G --> H[Project Output]
+```
+
+- **User/LLM Request**: Triggers the workflow
+- **Determine FOCUS**: Sets the phase (PLANNING, IMPLEMENTATION, DEBUGGING)
+- **Apply Workflow Rules**: Guides actions for the phase
+- **Consult Core/Best Practices**: Ensures standards and lessons are followed
+- **Consult/Update Memory Bank**: Keeps project context and docs up to date
+
+---
+
+## 🛠️ Additional Tips
+
+- Keep your memory bank up to date—it's the LLM's source of truth
+- Use the checklists above when starting a new project
+- Review and adapt rules as your project evolves
+- For custom workflows, add or modify rules in `.cursor/rules/project/`
+
+---
+
+## Need Help?
+
+- See the `README.md` in each rules subdirectory for more details
+- Consult the LLM with questions about rule usage or project setup

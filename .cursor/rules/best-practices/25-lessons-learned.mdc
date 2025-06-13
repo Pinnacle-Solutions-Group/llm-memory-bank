@@ -1,0 +1,21 @@
+---
+description: A living document capturing key insights, patterns, and solutions from
+globs: 
+alwaysApply: true
+---
+
+# Lessons Learned
+
+This document captures key lessons learned during the project. Reviewing these can help avoid repeating past mistakes, leverage successful patterns, and improve overall development efficiency. This is primarily maintained by the user but serves as important context for the AI, and the AI should prompt for updates.
+
+## Guiding Principles from Past Experience (Examples to be replaced by actual project lessons)
+
+- **Verify Assumptions:** Before complex operations, explicitly verify assumptions about file states, external services, or data.
+- **Tool Specificity:** Understand and use the most appropriate tool for each specific task. Query if unsure.
+- **Clear Task Definition:** Ensure tasks are well-defined and understood before implementation. Refer to [project_status.md](mdc:memory-bank/status/project_status.md) for current tasks.
+- **Instruction Adherence:** Strictly follow provided instructions, rules, and workflow protocols. Clarify ambiguities.
+- **Iterative Feedback:** For complex tasks, consider proposing a small part or asking for confirmation on approach before full implementation.
+
+## LLM Proactive Prompts
+
+After a complex `FOCUS = PLANNING` phase or a `FOCUS = DEBUGGING` session that yielded significant insights, YOU SHOULD prompt the user: "Were there any key takeaways or patterns from this [planning/debugging] session that should be captured in [lessons-learned](mdc:memory-bank/project/lessons_learned.md) for future reference?"

@@ -1,0 +1,101 @@
+---
+description: Defines the process for understanding requirements, designing solutions
+globs: 
+alwaysApply: false
+---
+
+# Planning Workflow Rules
+
+**FOCUS = PLANNING:** Develop comprehensive, actionable implementation plans aligned with project goals.
+
+## Planning Process (Execute in Order)
+
+### 1. Requirements Analysis & Context Gathering
+- **Requirements Clarity:** Ensure complete understanding of problem/feature scope
+- **Ambiguity Resolution:** Ask clarifying questions before proceeding
+- **Memory Bank Review:**
+  - [project_brief.md](mdc:memory-bank/project/project_brief.md) & [product_context.md](mdc:memory-bank/project/product_context.md): Goals, user needs
+  - [architecture.md](mdc:memory-bank/project/architecture.md) & [system_patterns.md](mdc:memory-bank/project/system_patterns.md): Constraints, patterns
+  - [tech_context.md](mdc:memory-bank/project/tech_context.md): Approved technologies, versions
+  - [project_status.md](mdc:memory-bank/status/project_status.md): Current priorities, related work
+  - [lessons-learned](mdc:.cursor/rules/best-practices/lessons-learned.mdc): Past experiences, patterns
+- **Codebase Analysis:** Review existing related components
+- **Constraints Documentation:** List key constraints (performance, deadlines, resources) and assumptions
+
+### 2. Solution Design & Evaluation
+- **Options Generation:** Brainstorm multiple approaches aligned with architecture and tech stack
+- **Trade-off Analysis:** Evaluate each option across:
+  - **Technical:** Maintainability, scalability, performance, security
+  - **Practical:** Development effort, complexity, team cognitive load
+  - **Strategic:** Alignment with project goals and [general-coding-conventions](mdc:.cursor/rules/core/general-coding-conventions.mdc)
+- **Solution Selection:** Choose optimal approach with clear justification referencing memory bank documents
+- **Risk Assessment:** Identify potential technical and implementation risks
+
+### 3. Implementation Plan Development
+- **Step Sequencing:** Create logical, dependency-aware implementation sequence
+- **Technical Specification:**
+  - New modules, classes, functions required
+  - Existing code modifications needed
+  - Architecture compliance per [architecture.md](mdc:memory-bank/project/architecture.md)
+- **Testing Strategy:** Define unit, integration, E2E test requirements
+- **Documentation Plan:** Specify code comments, API docs, technical documentation updates
+- **Dependency Management:** Identify new libraries, external dependencies, task prerequisites
+- **Risk Mitigation:** Include rollback/contingency plans for critical changes
+
+### 4. Plan Review & Approval
+- **Impact Assessment:** Identify required memory bank updates:
+  - [architecture.md](mdc:memory-bank/project/architecture.md): Architectural changes
+  - [tech_context.md](mdc:memory-bank/project/tech_context.md): New dependencies
+  - [project_status.md](mdc:memory-bank/status/project_status.md): Task/milestone updates
+- **Plan Presentation:** Present solution, justification, detailed implementation steps
+- **Approval Request:** **CRITICAL** - Request explicit approval before implementation:
+  > "Please review the proposed plan. Upon approval, I will switch to FOCUS = IMPLEMENTATION."
+
+## Planning Modes
+
+### **Comprehensive Planning Mode:**
+- Full requirements analysis and context gathering
+- Multiple solution exploration and evaluation
+- Detailed implementation planning with risk assessment
+
+### **Incremental Planning Mode:**
+- Focused requirements clarification
+- Single solution refinement
+- Tactical implementation steps for specific changes
+
+## Critical Rules
+
+**ALWAYS:**
+- Gather complete context before proposing solutions
+- Reference memory bank documents in justifications
+- Present multiple options when significant trade-offs exist
+- Request explicit approval before transitioning to implementation
+- Document constraints and assumptions clearly
+
+**NEVER:**
+- Proceed with implementation without approval
+- Skip memory bank context review
+- Choose solutions without justification
+- Ignore architectural constraints or tech stack requirements
+- Make assumptions about unclear requirements
+
+## Success Criteria
+
+**Well-Formed Plan Includes:**
+- Clear problem understanding and scope
+- Solution justified by project context
+- Step-by-step implementation sequence
+- Testing and documentation strategy
+- Risk mitigation considerations
+- Memory bank impact assessment
+
+**Approval Transition:**
+- User explicitly approves plan
+- All questions and concerns addressed
+- Clear handoff to FOCUS = IMPLEMENTATION
+
+## Common Mistakes (Avoid These)
+- ❌ Starting implementation without checking [tech_context.md](mdc:memory-bank/project/tech_context.md)
+- ❌ Using outdated library knowledge instead of memory bank docs
+- ❌ Skipping architecture review for "small" changes
+- ✅ Always check memory bank first, implement second

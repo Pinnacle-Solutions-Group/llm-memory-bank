@@ -1,0 +1,90 @@
+---
+description: Defines the process for executing approved plans, writing code, and ensuring
+globs: 
+alwaysApply: false
+---
+
+# Implementation Workflow Rules
+
+**FOCUS = IMPLEMENTATION:** Execute approved plans with precision, quality, and alignment.
+
+## Implementation Process (Execute in Order)
+
+### 1. Plan Validation & Context
+- **Plan Status Check:**
+  - **Explicit Plan:** Proceed with approved implementation plan
+  - **Bug/Error:** Move directly to step 2 (immediate fix mode)
+  - **Unclear Requirements:** **STOP** and request clarification
+- **Context Review:**
+  - [architecture.md](mdc:memory-bank/project/architecture.md): System constraints and patterns
+  - [tech_context.md](mdc:memory-bank/project/tech_context.md): Required library versions
+  - [project_status.md](mdc:memory-bank/status/project_status.md): Current state and related tasks
+- **Alignment Validation:** Verify plan consistency with current project context
+- **Conflict Resolution:** If discrepancies found, **STOP** and report to user
+
+### 2. Code Implementation
+- **Execute Methodically:** Follow plan steps in sequence
+- **Standards Compliance:** Apply [general-coding-conventions](mdc:.cursor/rules/core/general-coding-conventions.mdc) consistently
+- **Quality Checks:** Security, maintainability, performance per [lessons-learned](mdc:.cursor/rules/best-practices/lessons-learned.mdc)
+- **Error Escalation:** If significant issues arise, notify user: "Encountered [issue]. Switching to FOCUS = DEBUGGING" and follow [debugging-rules](mdc:.cursor/rules/workflow/debugging/debugging-rules.mdc)
+
+### 3. Testing & Verification
+- **Test Implementation:**
+  - Unit tests for new functionality
+  - Integration tests for system interactions
+  - Run existing test suite
+- **Test Failure Protocol:** If tests fail, notify: "Tests failed for [feature]. Switching to FOCUS = DEBUGGING" and follow [debugging-rules](mdc:.cursor/rules/workflow/debugging/debugging-rules.mdc)
+- **Documentation Updates:** Code comments, API docs, inline documentation
+
+### 4. Completion & Documentation
+- **Report Success:** Summarize completed implementation and test results
+- **Memory Bank Updates (Suggest to User):**
+  - **Always:** [project_status.md](mdc:memory-bank/status/project_status.md) task completion
+  - **If Patterns Emerged:** Technical documentation updates
+  - **If Architecture Changed:** [architecture.md](mdc:memory-bank/project/architecture.md) or [tech_context.md](mdc:memory-bank/project/tech_context.md) refinements
+
+## Implementation Modes
+
+### **Planned Implementation Mode:**
+- Full plan validation and context review
+- Methodical step-by-step execution
+- Comprehensive testing and documentation
+
+### **Bug Fix Mode:**
+- Skip plan validation (obvious issue identified)
+- Direct implementation of fix
+- Focus on verification and regression prevention
+
+## Critical Rules
+
+**ALWAYS:**
+- Validate plan alignment with current context before starting
+- Apply coding standards consistently throughout
+- Implement appropriate tests for new functionality
+- Document significant patterns or discoveries
+
+**NEVER:**
+- Implement without understanding requirements
+- Skip testing for "simple" changes
+- Ignore architecture or tech stack constraints
+- Continue implementation when encountering significant errors
+
+## FOCUS Transitions
+
+**Switch to DEBUGGING when:**
+- Significant implementation errors occur
+- Tests fail unexpectedly
+- System behavior doesn't match expectations
+- External dependencies cause issues
+
+**Stay in IMPLEMENTATION when:**
+- Following clear, approved plan
+- Making straightforward bug fixes
+- Adding well-defined features
+- Refactoring with clear scope
+
+## Common Mistakes (Avoid These)
+- ❌ Starting implementation without checking @tech_context.md
+- ❌ Using outdated library knowledge instead of memory bank docs
+- ❌ Skipping architecture review for "small" changes
+- ✅ Always check memory bank first, implement second

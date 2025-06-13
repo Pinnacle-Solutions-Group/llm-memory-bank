@@ -1,0 +1,74 @@
+min_version = "2024.9.5"
+
+[env]
+# Use the project name derived from the current directory
+PROJECT_NAME = "{{ cwd | basename }}"
+_.python.venv = ".venv"
+
+[tools]
+# Install the specified Python version
+python = "{{ get_env(name='PYTHON_VERSION', default='3.12') }}"
+uv = { version = "latest" }
+node = "{{ get_env(name='NODE_VERSION', default='22') }}"
+
+# Print environment information
+[tasks.info]
+run = '''
+echo "Project: $PROJECT_NAME"
+echo "$(python --version)"
+echo "$(uv --version)"
+echo "node $(node --version)"
+'''
+
+[tasks.setup]
+run = '''
+if [ ! -d .venv ]; then 
+  python -m venv .venv
+fi
+uv sync
+'''
+
+[tasks.format]
+run = '''
+npx markdownlint '**/*.md' --fix --ignore node_modules/ --config .markdownlint.json
+cd src && ruff format **/*.py
+'''
+
+[tasks.generate-cursor]
+run = '''
+cd src && python main.py generate --editor cursor --force
+'''
+
+[tasks.generate-windsurf]
+run = '''
+cd src && python main.py generate --editor windsurf --force
+'''
+
+[tasks.generate-all]
+run = '''
+cd src && python main.py generate --editor cursor --force
+cd src && python main.py generate --editor windsurf --force
+cd src && python main.py generate --editor claude-code --force
+cd src && python main.py generate --editor aider-chat --force
+'''
+
+[tasks.test]
+run = '''
+cd src && python -m pytest
+'''
+
+[tasks.lint]
+run = '''
+cd src && python main.py lint
+'''
+
+# Build a clean repository with generated files at root
+[tasks.build]
+run = '''
+cd src && python main.py generate --editor cursor --force
+cd src && python main.py generate --editor windsurf --force
+cd src && python main.py generate --editor claude-code --force
+cd src && python main.py generate --editor aider-chat --force
+echo "Generated files ready at repository root!"
+ls -la ../.cursor ../CLAUDE.md ../memory-bank | head -5
+'''

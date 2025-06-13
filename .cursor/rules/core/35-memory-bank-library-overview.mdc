@@ -1,0 +1,55 @@
+---
+description: Memory Bank Library Roadmap Update Rule
+globs: 
+alwaysApply: false
+---
+
+# Memory Bank Library Update Rule
+
+**Purpose:** Manual rule for updating Memory Bank with library documentation roadmaps.
+
+## Required Actions (Execute in Order)
+
+### 1. Verify Library Name Consistency
+- **Check Existing:** Scan `memory-bank/reference/api_docs/` for similar library names
+- **Name Matching:** Recognize aliases (e.g., "amplify" = "aws-amplify", "react" = "reactjs")
+- **Conflict Resolution:** If similar names exist, ask user: "Found existing [EXISTING_NAME]. Update that library or create separate entry for [NEW_NAME]?"
+- **Standardize:** Use consistent naming across all memory bank entries
+
+### 2. Crawl Documentation
+- **Target:** User-specified documentation page for [LIBRARY_NAME]
+- **Method:** Extract all navigation links, sections, sub-sections
+- **Scope:** Comprehensive coverage of available documentation
+
+### 3. Create Index Roadmap
+- **Format:** Index-style, link-rich navigation file (NOT prose summary)
+- **Content:** All major sections + direct links (internal & external)
+- **Structure:** Hierarchical list matching documentation organization
+
+### 4. Save Roadmap
+- **Location:** `memory-bank/reference/api_docs/[LIBRARY_NAME]/[MAJOR_VERSION]/llms.md`
+- **Filename:** Always `llms.md` 
+- **Overwrite:** Replace existing roadmap if present
+
+### 5. Notify Completion
+- **Message:** "Documentation roadmap for [LIBRARY_NAME] v[MAJOR_VERSION] created at [path]. This will be used for all future package references."
+
+## Critical Rules
+
+**DO NOT:**
+- Summarize or paraphrase content (unless explicitly requested)
+- Skip paginated sections or sub-links
+- Create prose overviews instead of navigation indexes
+- Create duplicate entries for the same library under different names
+
+**DO:**
+- Include ALL top-level and significant sub-sections
+- Maintain original link structure and hierarchy
+- Follow [memory-bank-usage](mdc:.cursor/rules/core/memory-bank-usage.mdc) for technical summaries if requested
+- Check for existing library entries before creating new ones
+- Use consistent naming conventions across all memory bank entries
+
+**ERROR HANDLING:**
+- **Cannot crawl page:** STOP and NOTIFY user immediately
+- **Incomplete crawl:** Note missing sections, ask for guidance
+- **Name ambiguity:** Ask user to clarify which library entry to update

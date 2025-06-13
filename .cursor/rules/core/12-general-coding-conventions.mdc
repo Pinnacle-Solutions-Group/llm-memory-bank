@@ -1,0 +1,57 @@
+---
+description: Foundational software engineering principles for code quality, robustness, testability, security, documentation, performance, and proactive assistance.
+globs: 
+alwaysApply: true
+---
+
+# General Coding Conventions
+
+Foundational principles for all code development. These are ALWAYS ENFORCED.
+
+## Code Quality (Non-Negotiable)
+
+- **Clarity First:** Readable > Clever. Simple > Complex.
+- **Consistency:** Follow project style guides. If undefined, match existing patterns.
+- **DRY:** Eliminate duplication. Extract reusable components.
+- **Naming:** Descriptive, searchable identifiers. No abbreviations.
+- **Single Responsibility:** One function = one purpose. One class = one concept.
+
+## Robustness (Required)
+
+- **Validate All Inputs:** External data is untrusted. Sanitize and validate.
+- **Error Handling:** Log errors. Fail gracefully. Provide meaningful messages.
+- **Resource Management:** Close connections, free memory, handle cleanup.
+- **Edge Cases:** Test boundaries, nulls, empty states, max limits.
+
+## Security (Critical)
+
+- **Input Sanitization:** Prevent injection, XSS, CSRF attacks.
+- **Least Privilege:** Minimal permissions required.
+- **Secrets:** Use environment variables or secrets manager per [tech_context.md](mdc:memory-bank/project/tech_context.md).
+- **Audit Trail:** Log security-relevant actions.
+
+## Testing & Documentation
+
+- **Testable Code:** Write unit tests. Prefer pure functions. Use dependency injection.
+- **Comments:** Explain "why", not "what". Document non-obvious decisions.
+- **API Docs:** Document public interfaces (params, returns, side effects).
+
+## Performance Guidelines
+
+- **Correctness First:** Make it work, then make it fast.
+- **Profile Before Optimizing:** Measure actual bottlenecks.
+- **Avoid Obvious Waste:** O(n²) where O(n) works, unnecessary loops, memory leaks.
+
+## LLM Assistance Rules
+
+**When to Suggest Improvements (During ANY FOCUS):**
+- Clear design pattern opportunity aligned with [system_patterns.md](mdc:memory-bank/project/system_patterns.md)
+- Architecture violation detected per [architecture.md](mdc:memory-bank/project/architecture.md) 
+- Security vulnerability spotted
+- Performance issue with obvious fix
+
+**How to Suggest:**
+- Brief mention: "This could benefit from [pattern/fix] because [reason]"
+- Non-intrusive: Don't derail primary task unless critical
+- Align with [tech_context.md](mdc:memory-bank/project/tech_context.md) constraints
+

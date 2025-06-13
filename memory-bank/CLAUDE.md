@@ -1,0 +1,109 @@
+# Memory-Bank Instructions for Claude Code
+
+These instructions apply when working with memory-bank.
+
+# Rule: 11-memory-bank-usage
+
+## Explains the structure and purpose of the Project Memory Bank, guiding
+
+## Guidelines for Using the Project Memory Bank
+
+### Purpose of Memory Bank
+
+The Memory Bank contains structured documentation for the application. It's your reference for project context, requirements, and technical implementation. **ALWAYS consult before major work.**
+
+### Core Principles
+
+1. **Memory Bank is Primary:** The Memory Bank (files within [memory-bank/project/](memory-bank/project) and [memory-bank/reference/](memory-bank/reference)) is your primary source of truth for project context, code generation, and decision-making.
+2. **Maintain Consistency:** Strictly adhere to the defined architecture, ref: [architecture.md](memory-bank/project/architecture.md), [system_patterns.md](memory-bank/project/system_patterns.md), and coding standards.
+3. **Development Context:** Always consider the current development FOCUS (see **00-meta-rules**) and project status (ref: [project_status.md](memory-bank/status/project_status.md)) in your actions.
+
+### Tech Stack Compliance (CRITICAL)
+
+#### 1. Always Check Tech Context First
+- **REQUIRED:** Consult [tech_context.md](memory-bank/project/tech_context.md) before any library-related work
+- **Versions Matter:** Use EXACT package versions specified in tech context
+- **No Assumptions:** Never assume library capabilities without verification
+
+#### 2. Documentation Validation Process
+**For ANY library from [tech_context.md](memory-bank/project/tech_context.md):**
+
+1. **Check Local Docs:** Look for `memory-bank/reference/api_docs/[LIBRARY]/[VERSION]/llms.md`
+2. **If Missing Roadmap:** Request library overview update:
+   > "I need current documentation for [LIBRARY] v[VERSION] from [tech_context.md](memory-bank/project/tech_context.md). Please run: Update memory bank using @memory-bank-library-overview.mdc for [LIBRARY] [URL]"
+3. **If Missing Section:** Request specific section summary:
+   > "I need detailed docs for [LIBRARY] [SECTION]. Please run: Update memory bank using @memory-bank-section-summarize.mdc for [LIBRARY] v[VERSION] [SECTION] @[URL]"
+
+#### 3. Knowledge Validation
+**Before implementing with ANY library:**
+- **Current Knowledge Check:** Do I have sufficient knowledge of the EXACT version specified?
+- **If Uncertain:** STOP and request documentation update
+- **Never Guess:** Don't use outdated knowledge or assume API compatibility
+
+### Architectural Document Processing
+
+When referencing architecture documents (e.g., [architecture.md](memory-bank/project/architecture.md), [system_patterns.md](memory-bank/project/system_patterns.md)):
+
+1. **Parse & Understand:** Load diagrams, extract boundaries, flows, dependencies.
+2. **Validate Changes:** Ensure alignment with architectural constraints.
+3. **Maintain Patterns:** Uphold separation of concerns and defined patterns.
+
+**Error Handling (Architecture):**
+- **Missing/Unreadable Doc:** **STOP and NOTIFY** user.
+- **Diagram Parse Failure:** **REQUEST CLARIFICATION** or a corrected diagram.
+- **Architectural Violation:** **WARN and SEEK CONFIRMATION** from user.
+
+### Memory Bank Navigation
+
+#### **Project Context:**
+- [project_brief.md](memory-bank/project/project_brief.md): High-level overview, objectives
+- [product_context.md](memory-bank/project/product_context.md): Problem, solution, value, target users
+- [project_status.md](memory-bank/status/project_status.md): Current development focus, tasks, issues
+
+#### **Technical Architecture:**
+- [architecture.md](memory-bank/project/architecture.md): System architecture, constraints
+- [system_patterns.md](memory-bank/project/system_patterns.md): Design patterns, data flow, security
+- [tech_context.md](memory-bank/project/tech_context.md): **AUTHORITATIVE tech stack** (versions, packages)
+- [directory_structure.md](memory-bank/project/directory_structure.md): Source code organization
+
+#### **Library Documentation:**
+- `memory-bank/reference/api_docs/[LIBRARY]/[VERSION]/llms.md`: Navigation roadmaps
+- `memory-bank/reference/api_docs/[LIBRARY]/[VERSION]/llms-[section].md`: Detailed summaries
+- [troubleshooting_log.md](memory-bank/project/troubleshooting_log.md): Error solutions and patterns
+
+### Required Actions Before Implementation
+
+#### When Working with Libraries
+1. **Verify in Tech Context:** Confirm library and version in [tech_context.md](memory-bank/project/tech_context.md)
+2. **Check Documentation:** Ensure current docs exist in memory bank
+3. **Request Updates:** If docs missing or outdated, request update using appropriate rule
+4. **Validate Approach:** Align implementation with documented patterns
+
+#### Documentation Request Templates
+**Library Overview Missing:**
+```text
+"I need documentation for [LIBRARY] v[VERSION]. Please update memory bank using @memory-bank-library-overview.mdc"
+```
+
+**Section Details Missing:**
+```text
+"I need detailed docs for [LIBRARY] [SECTION]. Please update memory bank using @memory-bank-section-summarize.mdc"
+```
+
+### Status Updates
+
+If your actions lead to significant changes, advise the user that [project_status.md](memory-bank/status/project_status.md) and related documents in [memory-bank/project/](memory-bank/project) might need updating.
+
+### Core Compliance Rules
+
+**ALWAYS:**
+- Check [tech_context.md](memory-bank/project/tech_context.md) for exact versions
+- Use memory bank docs over general knowledge
+- Request updates when documentation is missing
+- Align all work with project architecture and patterns
+
+**NEVER:**
+- Use outdated library knowledge
+- Assume API compatibility across versions
+- Implement without current documentation
+- Bypass tech stack specifications
