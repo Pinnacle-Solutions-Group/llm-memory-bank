@@ -96,9 +96,9 @@ This will install all necessary Python packages into your virtual environment. Y
 
 ```bash
 # Generate editor-specific rules at repository root
-cd src && python main.py generate --editor cursor --force
-cd src && python main.py generate --editor windsurf --force
-cd src && python main.py generate --editor claude-code --force
+python main.py generate --editor cursor --force
+python main.py generate --editor windsurf --force
+python main.py generate --editor claude-code --force
 
 # Or use mise to generate all formats
 mise run generate-all
@@ -122,7 +122,7 @@ mise run generate-all
 Generate editor-specific rules and configurations at the repository root.
 
 ```bash
-cd src && python main.py generate --editor <cursor|windsurf|claude-code|aider-chat> [OPTIONS]
+python main.py generate --editor <cursor|windsurf|claude-code|aider-chat> [OPTIONS]
 ```
 
 **Options:**

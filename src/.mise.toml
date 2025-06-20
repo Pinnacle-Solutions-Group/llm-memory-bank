@@ -31,44 +31,44 @@ uv sync
 [tasks.format]
 run = '''
 npx markdownlint '**/*.md' --fix --ignore node_modules/ --config .markdownlint.json
-cd src && ruff format **/*.py
+ruff format **/*.py
 '''
 
 [tasks.generate-cursor]
 run = '''
-cd src && python main.py generate --editor cursor --force
+python main.py generate --editor cursor --force
 '''
 
 [tasks.generate-windsurf]
 run = '''
-cd src && python main.py generate --editor windsurf --force
+python main.py generate --editor windsurf --force
 '''
 
 [tasks.generate-all]
 run = '''
-cd src && python main.py generate --editor cursor --force
-cd src && python main.py generate --editor windsurf --force
-cd src && python main.py generate --editor claude-code --force
-cd src && python main.py generate --editor aider-chat --force
+python main.py generate --editor cursor --force
+python main.py generate --editor windsurf --force
+python main.py generate --editor claude-code --force
+python main.py generate --editor aider-chat --force
 '''
 
 [tasks.test]
 run = '''
-cd src && python -m pytest
+python -m pytest
 '''
 
 [tasks.lint]
 run = '''
-cd src && python main.py lint
+python main.py lint
 '''
 
 # Build a clean repository with generated files at root
 [tasks.build]
 run = '''
-cd src && python main.py generate --editor cursor --force
-cd src && python main.py generate --editor windsurf --force
-cd src && python main.py generate --editor claude-code --force
-cd src && python main.py generate --editor aider-chat --force
+python main.py generate --editor cursor --force
+python main.py generate --editor windsurf --force
+python main.py generate --editor claude-code --force
+python main.py generate --editor aider-chat --force
 echo "Generated files ready at repository root!"
 ls -la ../.cursor ../CLAUDE.md ../memory-bank | head -5
 '''

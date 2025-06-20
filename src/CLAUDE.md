@@ -7,11 +7,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Development Commands
 ```bash
 # Run tests (from src/ directory)
-cd src && python -m pytest
+python -m pytest
 
 # Lint/format code (from src/ directory)  
-cd src && ruff format **/*.py
-cd src && ruff check **/*.py
+ruff format **/*.py
+ruff check **/*.py
 
 # Format markdown (from root)
 npx markdownlint '**/*.md' --fix --ignore node_modules/ --config .markdownlint.json
@@ -26,13 +26,13 @@ mise run info          # Show environment info
 ### Main CLI Commands
 ```bash
 # Generate editor-specific rules in output/ directory (run from src/)
-cd src && python main.py generate --editor cursor --force
-cd src && python main.py generate --editor windsurf --force
-cd src && python main.py generate --editor claude-code --force  
-cd src && python main.py generate --editor aider-chat --force
+python main.py generate --editor cursor --force
+python main.py generate --editor windsurf --force
+python main.py generate --editor claude-code --force  
+python main.py generate --editor aider-chat --force
 
 # Validate markdown links (run from src/)
-cd src && python main.py lint
+python main.py lint
 
 # Or use mise tasks (from root):
 mise run generate-cursor
@@ -109,7 +109,7 @@ llm-memory-bank/
 
 ## Testing
 
-Run tests with: `cd src && python -m pytest` or `mise run test`
+Run tests with: `python -m pytest` or `mise run test`
 
 Test files are in `src/tests/` directory:
 - `test_frontmatter.py` - Frontmatter parsing and manipulation
@@ -119,6 +119,6 @@ Test files are in `src/tests/` directory:
 ## Usage for End Users
 
 1. **Download this repository** 
-2. **Generate outputs**: `cd src && python main.py generate --editor cursor --force`
+2. **Generate outputs**: `python main.py generate --editor cursor --force`
 3. **Copy to your project**: Copy `.cursor/` and `memory-bank/` from root to your project
 4. **Enjoy**: LLM rules and memory bank are now active in your project

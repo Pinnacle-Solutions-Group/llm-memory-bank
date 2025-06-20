@@ -23,7 +23,7 @@ def cli():
 )
 def generate(all):
     """Generate editor-specific rules in the output directory for all supported editors."""
-    output_folder = str(Path(__file__).parent.parent)  # Root directory as str
+    output_folder = Path(__file__).parent.parent / "rules" # Root directory as str
 
     # Generate for single-file editors
     transform_to_project_single_file(output_folder, "CLAUDE.md")
