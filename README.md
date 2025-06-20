@@ -21,16 +21,14 @@ After installing withing your project will have:
 
 ```mermaid
 graph LR
-    A[rules/] --> B(core/)
-    A --> C(best-practices/)
-    A --> D(workflow/)
-    A --> E(project/)
+    A[rules/] --> B(.cursor/)
+    A --> C(.windsurf/)
     F[memory-bank/] --> G(project/)
     F --> H(status/)
     F --> I(reference/)
 ```
 
-- `rules/`: All rule files (core, best-practices, workflow, project-specific)
+- `rules/`: Contains rule configurations for different platforms (e.g., `.cursor`, `.windsurf`).
 - `memory-bank/`: Project context, status, architecture, and reference docs
 
 ---
@@ -196,7 +194,7 @@ graph TD
 - Keep your memory bank up to date—it's the LLM's source of truth
 - Use the checklists above when starting a new project
 - Review and adapt rules as your project evolves
-- For custom workflows, add or modify rules in `rules/project/`
+- For custom workflows, add or modify rules in `rules/.cursor/project/` or `rules/.windsurf/project/`
 
 ---
 
