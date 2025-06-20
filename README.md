@@ -21,7 +21,7 @@ After installing withing your project will have:
 
 ```mermaid
 graph LR
-    A[.cursor/rules/] --> B(core/)
+    A[rules/] --> B(core/)
     A --> C(best-practices/)
     A --> D(workflow/)
     A --> E(project/)
@@ -30,7 +30,7 @@ graph LR
     F --> I(reference/)
 ```
 
-- `.cursor/rules/`: All rule files (core, best-practices, workflow, project-specific)
+- `rules/`: All rule files (core, best-practices, workflow, project-specific)
 - `memory-bank/`: Project context, status, architecture, and reference docs
 
 ---
@@ -60,19 +60,19 @@ The LLM and workflow rules use a concept called **FOCUS** to determine which rul
 ### Examples of FOCUS
 
 > Your focus is PLANNING for this task
-> 
+>
 > Review @src from an online no-code builder.  This project has the look/feel I want, but is not integrated with @aws-amplify/ui-react
-> 
+>
 > This must be a detailed plan with steps I can indiividually tackle
-> 
+>
 > Plan out how to create those components in my project
 > Plan out how to migrate the colors and assets into my project
-> Write that plan into steps with each step into a new markdown file in @status and reference this within the pending/ To Do section of @project_status.md 
+> Write that plan into steps with each step into a new markdown file in @status and reference this within the pending/ To Do section of @project_status.md
 
 ---
 
 > OK, set your focus to planning the authentication so users are fully authenticated when they hit the dashboard
-> 
+>
 > Please review @llms-authentication.txt and @llms-backend-authentication-index.txt for key points that need to be addressed
 
 ---
@@ -131,7 +131,7 @@ To create or update the main documentation roadmap (`llms.md`) for a library (us
 
 ---
 
-> Using @memory-bank-library-overview.mdc and @<https://ai-sdk.dev/docs/introduction> create the summary for ai@4 
+> Using @memory-bank-library-overview.mdc and @<https://ai-sdk.dev/docs/introduction> create the summary for ai@4
 
 ---
 
@@ -162,11 +162,11 @@ To create a detailed, LLM-optimized summary for a specific section of a library'
 
 #### Examples for the Section Specific Summary
 
-> update your memory-bank using @memory-bank-section-summarize.mdc for cli-commands @<https://docs.amplify.aws/react/reference/cli-commands/> 
+> update your memory-bank using @memory-bank-section-summarize.mdc for cli-commands @<https://docs.amplify.aws/react/reference/cli-commands/>
 
 ---
 
-> Using @memory-bank-section-summarize.mdc update the function section of amplify v6 from @<https://docs.amplify.aws/vue/build-a-backend/functions/set-up-function/> 
+> Using @memory-bank-section-summarize.mdc update the function section of amplify v6 from @<https://docs.amplify.aws/vue/build-a-backend/functions/set-up-function/>
 
 ---
 
@@ -196,7 +196,7 @@ graph TD
 - Keep your memory bank up to date—it's the LLM's source of truth
 - Use the checklists above when starting a new project
 - Review and adapt rules as your project evolves
-- For custom workflows, add or modify rules in `.cursor/rules/project/`
+- For custom workflows, add or modify rules in `rules/project/`
 
 ---
 
